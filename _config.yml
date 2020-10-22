@@ -106,3 +106,4 @@ deploy:
   type: git
   repository: https://github.com/xbwee1024/xbwee1024.github.io.git
   branch: master
+  message: add/modify/delete posts

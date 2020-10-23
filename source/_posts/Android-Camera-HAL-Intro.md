@@ -10,9 +10,9 @@ categories: camera hal
 summary: android camera hal 介绍
 ---
 
-Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 [Android HAL](Android-HAL-Intro) 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。
+Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 [Android HAL 介绍](https://www.xbwee.space/2020/10/22/Android-HAL-Intro/#more) 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。
 
-不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不停演进。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 `android.hardware.Camera` API, 已经不再被支持。推荐实现 v3.2 及以上。
+不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 `android.hardware.Camera` API, 已经不再被支持。推荐实现 v3.2 及以上。
 
 模块名称定义如下，加载模块时根据模块名称搜索对应的动态库 `camera.variant.so`。
 ```c++
@@ -20,6 +20,10 @@ Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都�
 ```
 
 <!--more-->
+
+## HAL 接口介绍
+
+模块接口，camera 通用方法，全局信息的查询。调用时要注意有些方法是无效的，调用前一定要做判空处理，兼容性查询 API 说明。
 
 ```c++
 >>> libhardware/include/hardware/camera_common.h
@@ -144,6 +148,8 @@ typedef struct camera_module {
 } camera_module_t;
 ```
 
+Camera HALv1, v2, v3，`camera3_device` 的定义，注意 `device_ops_t` 支持的接口不一致。
+
 ```c++
 >>> libhardware/include/hardware/camera3.h
 typedef struct camera3_device {
@@ -186,6 +192,8 @@ typedef struct camera_device {
     void *priv;
 } camera_device_t;
 ```
+
+HALv3 设备功能接口，注意不同子版本对 API 的支持情况不同。因为涉及到底层硬件操作，每个调用有性能要求，同步调用不能超时。
 
 ```c++
 >>> libhardware/include/hardware/camera3.h
@@ -328,6 +336,8 @@ typedef struct camera3_device_ops {
 
 ## module API version
 
+当前推荐版本是 `CAMERA_MODULE_API_VERSION_2_5`
+
 ```c++
 >>> include/hardware/camera_common.h
 /**
@@ -389,6 +399,8 @@ camera_module_t.common.module_api_version
 
 
 ## device API version 
+
+当前推荐使用的版本是 `CAMERA_DEVICE_API_VERSION_3_5`
 
 ```c++
 /**
@@ -498,7 +510,7 @@ CAMERA_DEVICE_API_VERSION_2_0 及以下
 Camera HAL 启动和调用流程，
 1. Framework 调用`camera_module_t->common.open()`, 返回`hardware_device_t`结构.
 2. Framework 根据`hardware_device_t->version`的值，把返回的对象实例转换成对应版本的 device handler； 比如 `CAMERA_DEVICE_API_VERSION_3_0`则转换成`camera3_device_t`
-3. Framework 调用`camera3_device_t->ops->initialize`, 是在`open`之后其它功能函数调用之前
+3. Framework 调用`camera3_device_t->ops->initialize`, 必须是在`open`之后其它功能函数调用之前；如果不需要可以置空。
 4. Framework 调用`camera3_device_t->ops->configure_streams`, input/output stream参数传递给 HAL
 5. 注册输出流
     - `CAMERA_DEVICE_API_VERSION_3_1`及以下版本，Framework 分配好 gralloc buffer，并调用`camera3_device_t->ops->register_stream_buffers`，注册输出流，每个流仅需注册一次

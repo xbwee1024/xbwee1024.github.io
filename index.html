@@ -1,468 +1,505 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<!DOCTYPE html><html lang="zh-Hans"><head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-  <title>xbwee&#39;s blogs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta name="description" content="技术博客，杂记，随笔">
 <meta property="og:type" content="website">
-<meta property="og:title" content="xbwee&#39;s blogs">
+<meta property="og:title" content="xbwee's blogs">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="xbwee&#39;s blogs">
+<meta property="og:site_name" content="xbwee's blogs">
 <meta property="og:description" content="技术博客，杂记，随笔">
 <meta property="og:locale">
 <meta property="article:author" content="xbwee">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="xbwee&#39;s blogs" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<link rel="canonical" href="http://example.com/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">xbwee&#39;s blogs</a>
-      </h1>
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>xbwee's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">xbwee's blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">思绪如风，偶尔在此停留</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-Android-Camera-HAL-Intro" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/23/Android-Camera-HAL-Intro/" class="article-date">
-  <time datetime="2020-10-23T02:48:12.000Z" itemprop="datePublished">2020-10-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/camera-hal/">camera hal</a>
-  </div>
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/23/Android-Camera-HAL-Intro/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/23/Android-Camera-HAL-Intro/">Android Camera HAL 介绍</a>
-    </h1>
-  
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xbwee">
+      <meta itemprop="description" content="技术博客，杂记，随笔">
+    </span>
 
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xbwee's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/23/Android-Camera-HAL-Intro/" class="post-title-link" itemprop="url">Android Camera HAL 介绍</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-23 10:48:12 / Modified: 11:38:24" itemprop="dateCreated datePublished" datetime="2020-10-23T10:48:12+08:00">2020-10-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/camera-hal/" itemprop="url" rel="index"><span itemprop="name">camera hal</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time ≈</span>
+              <span>16 mins.</span>
+            </span>
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>模块名称定义如下，加载模块时根据模块名称搜索对应的动态库。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_HARDWARE_MODULE_ID <span class="meta-string">&quot;camera&quot;</span></span></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; libhardware/include/hardware/camera_common.h</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">camera_module</span> &#123;</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Common methods of the camera module.  This *must* be the first member of</span></span><br><span class="line"><span class="comment">     * camera_module as users of this structure will cast a hw_module_t to</span></span><br><span class="line"><span class="comment">     * camera_module pointer in contexts where it&#x27;s known the hw_module_t</span></span><br><span class="line"><span class="comment">     * references a camera_module.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">hw_module_t</span> common;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> (*get_number_of_cameras)(<span class="keyword">void</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> (*get_camera_info)(<span class="keyword">int</span> camera_id, struct camera_info *info);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  CAMERA_MODULE_API_VERSION_1_0, CAMERA_MODULE_API_VERSION_2_0:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *    Not provided by HAL module. Framework may not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  CAMERA_MODULE_API_VERSION_2_1:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *    Valid to be called by the framework.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*set_callbacks)(<span class="keyword">const</span> <span class="keyword">camera_module_callbacks_t</span> *callbacks);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  CAMERA_MODULE_API_VERSION_1_x/2_0/2_1:</span></span><br><span class="line"><span class="comment">     *    Not provided by HAL module. Framework may not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  CAMERA_MODULE_API_VERSION_2_2:</span></span><br><span class="line"><span class="comment">     *    Valid to be called by the framework.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> (*get_vendor_tag_ops)(<span class="keyword">vendor_tag_ops_t</span>* ops);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  CAMERA_MODULE_API_VERSION_1_x/2_0/2_1/2_2:</span></span><br><span class="line"><span class="comment">     *    Not provided by HAL module. Framework will not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  CAMERA_MODULE_API_VERSION_2_3:</span></span><br><span class="line"><span class="comment">     *    Valid to be called by the framework.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*open_legacy)(<span class="keyword">const</span> struct <span class="keyword">hw_module_t</span>* <span class="keyword">module</span>, <span class="keyword">const</span> <span class="keyword">char</span>* id,</span><br><span class="line">            <span class="keyword">uint32_t</span> halVersion, struct <span class="keyword">hw_device_t</span>** device);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_1_x/2_0/2_1/2_2/2_3:</span></span><br><span class="line"><span class="comment">     *   Not provided by HAL module. Framework will not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_2_4:</span></span><br><span class="line"><span class="comment">     *   Valid to be called by the framework.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*set_torch_mode)(<span class="keyword">const</span> <span class="keyword">char</span>* camera_id, <span class="keyword">bool</span> enabled);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_1_x/2_0/2_1/2_2/2_3:</span></span><br><span class="line"><span class="comment">     *   Not provided by HAL module. Framework will not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_2_4:</span></span><br><span class="line"><span class="comment">     *   If not NULL, will always be called by the framework once after the HAL</span></span><br><span class="line"><span class="comment">     *   module is loaded, before any other HAL module method is called.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*init)();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_1_x/2_0/2_1/2_2/2_3/2_4:</span></span><br><span class="line"><span class="comment">     *   Not provided by HAL module. Framework will not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_2_5 or higher:</span></span><br><span class="line"><span class="comment">     *   If any of the camera devices accessible through this camera module is</span></span><br><span class="line"><span class="comment">     *   a logical multi-camera, and at least one of the physical cameras isn&#x27;t</span></span><br><span class="line"><span class="comment">     *   a stand-alone camera device, this function will be called by the camera</span></span><br><span class="line"><span class="comment">     *   framework. Calling this function with invalid physical_camera_id will</span></span><br><span class="line"><span class="comment">     *   get -EINVAL, and NULL static_metadata.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*get_physical_camera_info)(<span class="keyword">int</span> physical_camera_id,</span><br><span class="line">            <span class="keyword">camera_metadata_t</span> **static_metadata);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Version information (based on camera_module_t.common.module_api_version):</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_1_x/2_0/2_1/2_2/2_3/2_4:</span></span><br><span class="line"><span class="comment">     *   Not provided by HAL module. Framework will not call this function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * CAMERA_MODULE_API_VERSION_2_5 or higher:</span></span><br><span class="line"><span class="comment">     *   Valid to be called by the framework.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*is_stream_combination_supported)(<span class="keyword">int</span> camera_id,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">camera_stream_combination_t</span> *streams);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * notify_device_state_change:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Notify the camera module that the state of the overall device has</span></span><br><span class="line"><span class="comment">     * changed in some way that the HAL may want to know about.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> (*notify_device_state_change)(<span class="keyword">uint64_t</span> deviceState);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * get_camera_device_version:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Return the device version for a given camera device. This value may not change for a camera</span></span><br><span class="line"><span class="comment">     * device. The version returned here must be the same as the one from get_camera_info.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*get_camera_device_version)(<span class="keyword">int</span> camera_id, <span class="keyword">uint32_t</span> *version);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* reserved for future use */</span></span><br><span class="line">    <span class="keyword">void</span>* reserved[<span class="number">1</span>];</span><br><span class="line">&#125; <span class="keyword">camera_module_t</span>;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; libhardware/include/hardware/camera3.h</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">camera3_device</span> &#123;</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * common.version must equal CAMERA_DEVICE_API_VERSION_3_0 to identify this</span></span><br><span class="line"><span class="comment">     * device as implementing version 3.0 of the camera device HAL.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Camera open (common.module-&gt;common.methods-&gt;open) should return in 200ms, and must return</span></span><br><span class="line"><span class="comment">     * in 500ms.</span></span><br><span class="line"><span class="comment">     * Camera close (common.close) should return in 200ms, and must return in 500ms.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">hw_device_t</span> common;</span><br><span class="line">    <span class="keyword">camera3_device_ops_t</span> *ops;</span><br><span class="line">    <span class="keyword">void</span> *priv;</span><br><span class="line">&#125; <span class="keyword">camera3_device_t</span>;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; libhardware/include/hardware/camera2.h</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">camera2_device</span> &#123;</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * common.version must equal CAMERA_DEVICE_API_VERSION_2_0 to identify</span></span><br><span class="line"><span class="comment">     * this device as implementing version 2.0 of the camera device HAL.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">hw_device_t</span> common;</span><br><span class="line">    <span class="keyword">camera2_device_ops_t</span> *ops;</span><br><span class="line">    <span class="keyword">void</span> *priv;</span><br><span class="line">&#125; <span class="keyword">camera2_device_t</span>;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; libhardware/include/hardware/camera.h</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">camera_device</span> &#123;</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * camera_device.common.version must be in the range</span></span><br><span class="line"><span class="comment">     * HARDWARE_DEVICE_API_VERSION(0,0)-(1,FF). CAMERA_DEVICE_API_VERSION_1_0 is</span></span><br><span class="line"><span class="comment">     * recommended.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">hw_device_t</span> common;</span><br><span class="line">    <span class="keyword">camera_device_ops_t</span> *ops;</span><br><span class="line">    <span class="keyword">void</span> *priv;</span><br><span class="line">&#125; <span class="keyword">camera_device_t</span>;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; libhardware/include/hardware/camera3.h</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">camera3_device_ops</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * initialize:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * One-time initialization to pass framework callback function pointers to</span></span><br><span class="line"><span class="comment">     * the HAL. Will be called once after a successful open() call, before any</span></span><br><span class="line"><span class="comment">     * other functions are called on the camera3_device_ops structure.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This should be a non-blocking call. The HAL should return from this call</span></span><br><span class="line"><span class="comment">     * in 5ms, and must return from this call in 10ms.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*initialize)(<span class="keyword">const</span> struct camera3_device *,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">camera3_callback_ops_t</span> *callback_ops);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * The HAL should return from this call in 500ms, and must return from this</span></span><br><span class="line"><span class="comment">     * call in 1000ms.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*configure_streams)(<span class="keyword">const</span> struct camera3_device *,</span><br><span class="line">            <span class="keyword">camera3_stream_configuration_t</span> *stream_list);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This should be a non-blocking call. The HAL should return from this call</span></span><br><span class="line"><span class="comment">     * in 1ms, and must return from this call in 5ms.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*register_stream_buffers)(<span class="keyword">const</span> struct camera3_device *,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">camera3_stream_buffer_set_t</span> *buffer_set);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This should be a non-blocking call. The HAL should return from this call</span></span><br><span class="line"><span class="comment">     * in 1ms, and must return from this call in 5ms.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">camera_metadata_t</span>* (*construct_default_request_settings)(</span><br><span class="line">            <span class="keyword">const</span> struct camera3_device *,</span><br><span class="line">            <span class="keyword">int</span> type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Performance considerations:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Handling a new buffer should be extremely lightweight and there should be</span></span><br><span class="line"><span class="comment">     * no frame rate degradation or frame jitter introduced.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This call must return fast enough to ensure that the requested frame</span></span><br><span class="line"><span class="comment">     * rate can be sustained, especially for streaming cases (post-processing</span></span><br><span class="line"><span class="comment">     * quality settings set to FAST). The HAL should return this call in 1</span></span><br><span class="line"><span class="comment">     * frame interval, and must return from this call in 4 frame intervals.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*process_capture_request)(<span class="keyword">const</span> struct camera3_device *,</span><br><span class="line">            <span class="keyword">camera3_capture_request_t</span> *request);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &gt;= CAMERA_DEVICE_API_VERSION_3_2:</span></span><br><span class="line"><span class="comment">     *    DEPRECATED. This function has been deprecated and should be set to</span></span><br><span class="line"><span class="comment">     *    NULL by the HAL.  Please implement get_vendor_tag_ops in camera_common.h</span></span><br><span class="line"><span class="comment">     *    instead.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> (*get_metadata_vendor_tag_ops)(<span class="keyword">const</span> struct camera3_device*,</span><br><span class="line">            <span class="keyword">vendor_tag_query_ops_t</span>* ops);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * dump:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Print out debugging state for the camera device. This will be called by</span></span><br><span class="line"><span class="comment">     * the framework when the camera service is asked for a debug dump, which</span></span><br><span class="line"><span class="comment">     * happens when using the dumpsys tool, or when capturing a bugreport.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * The passed-in file descriptor can be used to write debugging text using</span></span><br><span class="line"><span class="comment">     * dprintf() or write(). The text should be in ASCII encoding only.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This must be a non-blocking call. The HAL should return from this call</span></span><br><span class="line"><span class="comment">     * in 1ms, must return from this call in 10ms. This call must avoid</span></span><br><span class="line"><span class="comment">     * deadlocks, as it may be called at any point during camera operation.</span></span><br><span class="line"><span class="comment">     * Any synchronization primitives used (such as mutex locks or semaphores)</span></span><br><span class="line"><span class="comment">     * should be acquired with a timeout.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> (*dump)(<span class="keyword">const</span> struct camera3_device *, <span class="keyword">int</span> fd);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Performance requirements:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * The HAL should return from this call in 100ms, and must return from this</span></span><br><span class="line"><span class="comment">     * call in 1000ms. And this call must not be blocked longer than pipeline</span></span><br><span class="line"><span class="comment">     * latency (see S7 for definition).</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Version information:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *   only available if device version &gt;= CAMERA_DEVICE_API_VERSION_3_1.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*flush)(<span class="keyword">const</span> struct camera3_device *);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * signal_stream_flush:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;= CAMERA_DEVICE_API_VERISON_3_5:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *    Not defined and must be NULL</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &gt;= CAMERA_DEVICE_API_VERISON_3_6:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> (*signal_stream_flush)(<span class="keyword">const</span> struct camera3_device*,</span><br><span class="line">            <span class="keyword">uint32_t</span> num_streams,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">camera3_stream_t</span>* <span class="keyword">const</span>* streams);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * is_reconfiguration_required:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;= CAMERA_DEVICE_API_VERISON_3_5:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *    Not defined and must be NULL</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &gt;= CAMERA_DEVICE_API_VERISON_3_6:</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> (*is_reconfiguration_required)(<span class="keyword">const</span> struct camera3_device*,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">camera_metadata_t</span>* old_session_params,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">camera_metadata_t</span>* new_session_params);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* reserved for future use */</span></span><br><span class="line">    <span class="keyword">void</span> *reserved[<span class="number">6</span>];</span><br><span class="line">&#125; <span class="keyword">camera3_device_ops_t</span>;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="module-API-version"><a href="#module-API-version" class="headerlink" title="module API version"></a>module API version</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; include/hardware/camera_common.h</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * All module versions &lt;= HARDWARE_MODULE_API_VERSION(1, 0xFF) must be treated</span></span><br><span class="line"><span class="comment"> * as CAMERA_MODULE_API_VERSION_1_0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_1_0 HARDWARE_MODULE_API_VERSION(1, 0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_2_0 HARDWARE_MODULE_API_VERSION(2, 0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_2_1 HARDWARE_MODULE_API_VERSION(2, 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_2_2 HARDWARE_MODULE_API_VERSION(2, 2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_2_3 HARDWARE_MODULE_API_VERSION(2, 3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_2_4 HARDWARE_MODULE_API_VERSION(2, 4)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_2_5 HARDWARE_MODULE_API_VERSION(2, 5)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_MODULE_API_VERSION_CURRENT CAMERA_MODULE_API_VERSION_2_5</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">camera_module_t</span>.common.module_api_version</span><br></pre></td></tr></table></figure>
-<ul>
-<li>major: MSB 16bit</li>
-<li>minor: LSB 16bit</li>
-</ul>
-<h3 id="Versions-0-X-1-X-CAMERA-MODULE-API-VERSION-1-0"><a href="#Versions-0-X-1-X-CAMERA-MODULE-API-VERSION-1-0" class="headerlink" title="Versions: 0.X - 1.X [CAMERA_MODULE_API_VERSION_1_0]"></a>Versions: 0.X - 1.X [CAMERA_MODULE_API_VERSION_1_0]</h3><ul>
-<li>HAL interface 的初版 module 实现</li>
-<li>透过该版本 module 可打开的 camera 设备，仅仅支持 android.hardware.Camera API </li>
-<li><code>camera_info.device_version</code> 无效</li>
-<li><code>camera_info.static_camera_characteristics</code> 无效</li>
-</ul>
-<h3 id="Version-2-0-CAMERA-MODULE-API-VERSION-2-0"><a href="#Version-2-0-CAMERA-MODULE-API-VERSION-2-0" class="headerlink" title="Version: 2.0 [CAMERA_MODULE_API_VERSION_2_0]"></a>Version: 2.0 [CAMERA_MODULE_API_VERSION_2_0]</h3><ul>
-<li>支持 1.0， 2.0 HAL 接口</li>
-<li><code>camera_info.device_version</code> 有效</li>
-<li><code>camera_info.static_camera_characteristics</code> 在 device_version &gt;= 2.0 时有效</li>
-</ul>
-<h3 id="Version-2-1-CAMERA-MODULE-API-VERSION-2-1"><a href="#Version-2-1-CAMERA-MODULE-API-VERSION-2-1" class="headerlink" title="Version: 2.1 [CAMERA_MODULE_API_VERSION_2_1]"></a>Version: 2.1 [CAMERA_MODULE_API_VERSION_2_1]</h3><ul>
-<li>增加异步回调支持，用来通知 framework 底层状态的变化</li>
-<li><code>set_callbacks</code> 必须是该版本及其以上才支持</li>
-</ul>
-<h3 id="Version-2-2-CAMERA-MODULE-API-VERSION-2-2"><a href="#Version-2-2-CAMERA-MODULE-API-VERSION-2-2" class="headerlink" title="Version: 2.2 [CAMERA_MODULE_API_VERSION_2_2]"></a>Version: 2.2 [CAMERA_MODULE_API_VERSION_2_2]</h3><ul>
-<li>module 层面增加 vendor tag 支持</li>
-<li><code>vendor_tag_query_ops</code> 透过打开的 device 才能调用，不再推荐使用</li>
-</ul>
-<h3 id="Version-2-3-CAMERA-MODULE-API-VERSION-2-3"><a href="#Version-2-3-CAMERA-MODULE-API-VERSION-2-3" class="headerlink" title="Version: 2.3 [CAMERA_MODULE_API_VERSION_2_3]"></a>Version: 2.3 [CAMERA_MODULE_API_VERSION_2_3]</h3><ul>
-<li>支持打开 legacy device</li>
-<li>前提是 device 具备多个 device API 实现</li>
-<li><code>common.methods-&gt;open</code> 默认打开的还是最新版本的 device</li>
-</ul>
-<h3 id="Version-2-4-CAMERA-MODULE-API-VERSION-2-4"><a href="#Version-2-4-CAMERA-MODULE-API-VERSION-2-4" class="headerlink" title="Version: 2.4 [CAMERA_MODULE_API_VERSION_2_4]"></a>Version: 2.4 [CAMERA_MODULE_API_VERSION_2_4]</h3><ul>
-<li>Torch mode 支持，framework 可以在不打开 device 情况下使用 torch mode；当然 camera device 具有最高优先级使用 flash；当打开相机设备时，HAL 透过 callback 通知 framework torch mode 已关闭</li>
-<li>external camera （例如 USB camera）支持. <code>CAMERA_DEVICE_STATUS_PRESENT</code> 才可获取设备状态，否则无效。framework 注册 callback 接收hot-plug camera 状态，并更新可用的设备列表</li>
-<li>Camera arbitration hints， 增加提示信息：同时打开使用的相机个数， <code>get_camera_info</code> 调用返回后，<code>camera_info.resource_cost</code>, <code>camera_info.conflicting_devices</code>必须被设置</li>
-<li>module 初始化支持，在模块被加载后，其它方法被调用之前，初始化被调用，做一次性的初始化工作</li>
-</ul>
-<h3 id="ersion-2-5-CAMERA-MODULE-API-VERSION-2-5"><a href="#ersion-2-5-CAMERA-MODULE-API-VERSION-2-5" class="headerlink" title="ersion: 2.5 [CAMERA_MODULE_API_VERSION_2_5]"></a>ersion: 2.5 [CAMERA_MODULE_API_VERSION_2_5]</h3><ul>
-<li>可查询对象可以是逻辑相机，而不仅仅是物理相机设备</li>
-<li>增加 stream combination 能力查询</li>
-<li>完整的设备状态通知，比如 shutter 的 folding/unfolding, covering/uncovering</li>
-</ul>
-<h2 id="device-API-version"><a href="#device-API-version" class="headerlink" title="device API version"></a>device API version</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * All device versions &lt;= HARDWARE_DEVICE_API_VERSION(1, 0xFF) must be treated</span></span><br><span class="line"><span class="comment"> * as CAMERA_DEVICE_API_VERSION_1_0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_1_0 HARDWARE_DEVICE_API_VERSION(1, 0) <span class="comment">// DEPRECATED</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_2_0 HARDWARE_DEVICE_API_VERSION(2, 0) <span class="comment">// NO LONGER SUPPORTED</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_2_1 HARDWARE_DEVICE_API_VERSION(2, 1) <span class="comment">// NO LONGER SUPPORTED</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_0 HARDWARE_DEVICE_API_VERSION(3, 0) <span class="comment">// NO LONGER SUPPORTED</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_1 HARDWARE_DEVICE_API_VERSION(3, 1) <span class="comment">// NO LONGER SUPPORTED</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_2 HARDWARE_DEVICE_API_VERSION(3, 2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_3 HARDWARE_DEVICE_API_VERSION(3, 3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_4 HARDWARE_DEVICE_API_VERSION(3, 4)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_5 HARDWARE_DEVICE_API_VERSION(3, 5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_3_6 HARDWARE_DEVICE_API_VERSION(3, 6)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Device version 3.5 is current, older HAL camera device versions are not</span></span><br><span class="line"><span class="comment">// recommended for new devices.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_DEVICE_API_VERSION_CURRENT CAMERA_DEVICE_API_VERSION_3_5</span></span><br></pre></td></tr></table></figure>
-
-<p>Camera device HAL 3.6[ CAMERA_DEVICE_API_VERSION_3_6 ], 是当前推荐支持的版本</p>
-<ul>
-<li>支持 <code>android.hardware.Camera</code> API</li>
-<li>有限的 <code>android.hardware.Camera2</code> API</li>
-</ul>
-<p>CAMERA_DEVICE_API_VERSION_3_2 及以上</p>
-<ul>
-<li><code>camera_module_t.common.module_api_version</code> 最低要求 <code>2.2</code></li>
-</ul>
-<p>CAMERA_DEVICE_API_VERSION_3_1 及以下</p>
-<ul>
-<li><code>camera_module_t.common.module_api_version</code> 最低要求 <code>2.0</code></li>
-</ul>
-<p>CAMERA_DEVICE_API_VERSION_2_0 及以下</p>
-<ul>
-<li><code>camera_module_t.common.module_api_version</code> 要求<code>1.0</code></li>
-</ul>
-<h3 id="1-0-Initial-Android-camera-HAL-Android-4-0-camera-h"><a href="#1-0-Initial-Android-camera-HAL-Android-4-0-camera-h" class="headerlink" title="1.0: Initial Android camera HAL (Android 4.0) [camera.h]"></a>1.0: Initial Android camera HAL (Android 4.0) [camera.h]</h3><ul>
-<li>由 C++ <code>CameraHardwareInterface</code> 抽象接口转换而来</li>
-<li>支持 <code>android.hardware.Camera</code> API</li>
-</ul>
-<h3 id="2-0-Initial-release-of-expanded-capability-HAL-Android-4-2-camera2-h"><a href="#2-0-Initial-release-of-expanded-capability-HAL-Android-4-2-camera2-h" class="headerlink" title="2.0: Initial release of expanded-capability HAL (Android 4.2) [camera2.h]"></a>2.0: Initial release of expanded-capability HAL (Android 4.2) [camera2.h]</h3><ul>
-<li>完整实现 <code>android.hardware.Camera</code> API</li>
-<li>允许 camera service 持有 ZSL queue</li>
-<li>新增功能尚未做完整测试：manual capture control, Bayer RAW capture, reprocessing of RAW data</li>
-</ul>
-<h3 id="3-0-First-revision-of-expanded-capability-HAL"><a href="#3-0-First-revision-of-expanded-capability-HAL" class="headerlink" title="3.0: First revision of expanded-capability HAL"></a>3.0: First revision of expanded-capability HAL</h3><ul>
-<li>最低要求 module 版本 <code>2.0</code> 及以上</li>
-<li>重写了 input request 和 stream queue 接口</li>
-<li>合并 <code>trigger</code> 到 <code>request</code> 里面；合并<code>notification</code>到<code>results</code></li>
-<li>合并所有<code>callback</code>到一个结构体里面；合并初始化设置到一个初始化函数调用里</li>
-<li>合并<code>stream</code>配置到一个调用里；双向流替换<code>STREAM_FROM_STREAM</code>结构</li>
-<li>旧版本的有限支持</li>
-</ul>
-<h3 id="3-1-Minor-revision-of-expanded-capability-HAL"><a href="#3-1-Minor-revision-of-expanded-capability-HAL" class="headerlink" title="3.1: Minor revision of expanded-capability HAL"></a>3.1: Minor revision of expanded-capability HAL</h3><ul>
-<li><code>configure_streams</code>传递<code>consumer usage flags</code>到 HAL </li>
-<li><code>flush</code>调用将丢弃所有未处理完的 <code>requests/buffers</code></li>
-</ul>
-<h3 id="3-2-Minor-revision-of-expanded-capability-HAL"><a href="#3-2-Minor-revision-of-expanded-capability-HAL" class="headerlink" title="3.2: Minor revision of expanded-capability HAL"></a>3.2: Minor revision of expanded-capability HAL</h3><ul>
-<li>废弃<code>get_metadata_vendor_tag_ops</code>，使用<code>get_vendor_tag_ops</code>代替</li>
-<li>废弃<code>register_stream_buffers</code>，<code>process_capture_request</code>传递给 HAL 的 gralloc buffer 是由 framework 新分配的</li>
-<li>新增<code>partial result</code>支持，可以多次调用<code>process_capture_result</code>，获取到的是调用时刻 ready 的结果，是最终结果的子集</li>
-<li>新增<code>manual templete</code> 到 <code>camera3_request_template</code>，应用可直接用来控制拍照设置</li>
-<li>重写双向流、输入流的定义 spec</li>
-<li>改变返回结果的路径，由<code>process_capture_result</code>返回，不再是<code>process_capture_request</code></li>
-</ul>
-<h3 id="3-3-Minor-revision-of-expanded-capability-HAL"><a href="#3-3-Minor-revision-of-expanded-capability-HAL" class="headerlink" title="3.3: Minor revision of expanded-capability HAL"></a>3.3: Minor revision of expanded-capability HAL</h3><ul>
-<li>API 更新：OPAQUE, YUV reprocessing</li>
-<li>增加深度图输出支持</li>
-<li><code>camera3_stream_t</code>增加<code>data_space</code>, <code>rotation</code></li>
-<li><code>camera3_stream_configuration_t</code>增加 camera3 流配置模式</li>
-</ul>
-<h3 id="3-4-Minor-additions-to-supported-metadata-and-changes-to-data-space-support"><a href="#3-4-Minor-additions-to-supported-metadata-and-changes-to-data-space-support" class="headerlink" title="3.4: Minor additions to supported metadata and changes to data_space support"></a>3.4: Minor additions to supported metadata and changes to data_space support</h3><ul>
-<li><code>RAW_OPAQUE</code>格式增加 <code>ANDROID_SENSOR_OPAQUE_RAW_SIZE</code>参数</li>
-<li>Raw 格式增加 <code>ANDROID_CONTROL_POST_RAW_SENSITIVITY_BOOST_RANGE</code> 参数</li>
-<li>重定义<code>camera3_stream_t.data_space</code>，用法更灵活</li>
-<li>HALv3.2 以上增加如下几个通用 metadata<ul>
-<li>ANDROID_INFO_SUPPORTED_HARDWARE_LEVEL_3</li>
-<li>ANDROID_CONTROL_POST_RAW_SENSITIVITY_BOOST</li>
-<li>ANDROID_CONTROL_POST_RAW_SENSITIVITY_BOOST_RANGE</li>
-<li>ANDROID_SENSOR_DYNAMIC_BLACK_LEVEL</li>
-<li>ANDROID_SENSOR_DYNAMIC_WHITE_LEVEL</li>
-<li>ANDROID_SENSOR_OPAQUE_RAW_SIZE</li>
-<li>ANDROID_SENSOR_OPTICAL_BLACK_REGIONS</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-5-Minor-revisions-to-support-session-parameters-and-logical-multi-camera"><a href="#3-5-Minor-revisions-to-support-session-parameters-and-logical-multi-camera" class="headerlink" title="3.5: Minor revisions to support session parameters and logical multi camera:"></a>3.5: Minor revisions to support session parameters and logical multi camera:</h3><ul>
-<li>增加<code>ANDROID_REQUEST_AVAILABLE_SESSION_KEYS</code> metadata 参数</li>
-<li>增加<code>camera3_stream_configuration.session_parameters</code>, 保存<code>ANDROID_REQUEST_AVAILABLE_SESSION_KEYS</code>对应的初始化值</li>
-<li>增加 metadata 支持逻辑相机功能<ul>
-<li>ANDROID_REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA</li>
-<li>ANDROID_LOGICAL_MULTI_CAMERA_PHYSICAL_IDS</li>
-<li>ANDROID_LOGICAL_MULTI_CAMERA_SYNC_TYPE</li>
-</ul>
-</li>
-<li>增加<code>camera3_stream.physical_camera_id</code>，逻辑相机应用可以单独设定某个物理相机设备的流配置</li>
-<li>增加<code>camera3_capture_request.physcam_settings</code>, 逻辑相机应用可以单独设定某个物理相机设备</li>
-</ul>
-<h3 id="3-6-Minor-revisions-to-support-HAL-buffer-management-APIs"><a href="#3-6-Minor-revisions-to-support-HAL-buffer-management-APIs" class="headerlink" title="3.6: Minor revisions to support HAL buffer management APIs:"></a>3.6: Minor revisions to support HAL buffer management APIs:</h3><ul>
-<li>增加<code>ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION</code>，判断是否支持buffer管理</li>
-<li>增加<code>camera3_callback_ops_t</code> 几个 callback， 3.6 以下未定义，必须置空。<ul>
-<li><code>request_stream_buffers</code>, 异步callback，向 camera service 申请 output buffer</li>
-<li><code>return_stream_buffers</code>, 异步callback，返回给 camera service 填好的 output buffer</li>
-<li><code>signal_stream_flush</code>, camera service 通知 HAL 即将调用 <code>configure_streams</code>, HAL 需要立即完成所有 request 并返回所有 buffers，超时则 camera service 会触发fatal error；如果 HAL 已经返回所有 buffer，则该调用被忽略</li>
-<li><code>is_reconfiguration_required</code>, 根据新的session 参数，判断是否要重新配置流</li>
-</ul>
-</li>
-<li>增加<code>CAMERA3_JPEG_APP_SEGMENTS_BLOB_ID</code></li>
-</ul>
-<h2 id="Startup-and-operation-sequencing"><a href="#Startup-and-operation-sequencing" class="headerlink" title="Startup and operation sequencing"></a>Startup and operation sequencing</h2><p>Camera HAL 启动和调用流程，</p>
-<ol>
-<li><p>Framework 调用<code>camera_module_t-&gt;common.open()</code>, 返回<code>hardware_device_t</code>结构.</p>
-</li>
-<li><p>Framework 根据<code>hardware_device_t-&gt;version</code>的值，把返回的对象实例转换成对应版本的 device handler； 比如 <code>CAMERA_DEVICE_API_VERSION_3_0</code>则转换成<code>camera3_device_t</code></p>
-</li>
-<li><p>Framework 调用<code>camera3_device_t-&gt;ops-&gt;initialize</code>, 是在<code>open</code>之后其它功能函数调用之前</p>
-</li>
-<li><p>Framework 调用<code>camera3_device_t-&gt;ops-&gt;configure_streams</code>, input/output stream参数传递给 HAL</p>
-</li>
-<li><p>注册输出流</p>
-<ul>
-<li><code>CAMERA_DEVICE_API_VERSION_3_1</code>及以下版本，Framework 分配好 gralloc buffer，并调用<code>camera3_device_t-&gt;ops-&gt;register_stream_buffers</code>，注册输出流，每个流仅需注册一次</li>
-<li><code>CAMERA_DEVICE_API_VERSION_3_2</code>及以上版本，<code>camera3_device_t-&gt;ops-&gt;register_stream_buffers</code>置空</li>
-</ul>
-</li>
-<li><p>Framework 调用<code>camera3_device_t-&gt;ops-&gt;construct_default_request_settings</code>，获取特定 usecase 的默认设置， 可以在 step3 之后的任意时刻调用</p>
-</li>
-<li><p>Framework 基于获取的 usecase 默认设置，调用<code>camera3_device_t-&gt;ops-&gt;process_capture_request</code>发起第一个 capture request 到 HAL，至少有一个已注册的输出流，这是一个同步调用，HAL 会block 住直到可以处理下一个 request 才返回</p>
-<ul>
-<li><code>CAMERA_DEVICE_API_VERSION_3_2</code>及以上，request 带下来的<code>buffer_handle_t</code>必须是全新的对象</li>
-</ul>
-</li>
-<li><p>Framework 继续发起 request</p>
-<ul>
-<li>需要的话调用<code>construct_default_request_settings</code>获取 usecase 默认设置</li>
-<li>3.1 及以下，对于尚未注册的输出流，需要调用<code>register_stream_buffers</code>注册</li>
-</ul>
-</li>
-<li><p>拍照动作开始，Sensor 开始曝光</p>
-<ul>
-<li>3.2 及以上，HAL 调用<code>camera3_callback_ops_t-&gt;notify</code> 通知上层 <strong>SHUTTER event</strong>, 包括 <code>frame number</code> 和 <code>timestamp</code>; 因为 framework 必须要有 timestamp 才能 deliver gralloc buffer 给应用，所以 <code>notify</code> 必须尽可能早</li>
-<li>3.1 及以下，必须在调用<code>process_capture_result</code>之前调用<code>notify</code></li>
-<li><strong>partial metadata results</strong> 和 <strong>gralloc buffer</strong> 可以在 <strong>SHUTTER event</strong> 前或者后发送给 Framework</li>
-</ul>
-</li>
-<li><p>pipeline 处理需要时间，pipeline 处理完，HAL 调用<code>camera3_callback_ops_t-&gt;process_capture_result</code>通知 Framework 返回结果。顺序与发起 request 的顺序一一对应。</p>
-<ul>
-<li>3.2 及以上，返回之前，buffer 对应的<code>release_fence</code>会被调用，所有权移交给 Framework</li>
-<li>HAL 可以调用多次<code>process_capture_result</code> 更新 <strong>partial metadata results</strong>, Framework 负责合成最终的结果</li>
-<li>特别地，对于第 N 帧和第 N+1 帧，该回调可以被同时调到</li>
-</ul>
-</li>
-<li><p>一段时间之后，Framework 停止发送 request，并等待所有 capture 处理完成。然后又调用 <code>configure_streams</code>, 这会重置相机硬件和 pipeline，重新配置输入输出流，流可以被复用，。并且已注册过的输出流不需要再注册。如果至少有一个注册流，则重复 step7 开始的过程。如果没有注册流，则重复 step5 之后的过程。</p>
-</li>
-<li><p>Framework 调用 <code>camera3_device_t-&gt;common-&gt;close()</code> 关闭相机设备，该调用是同步调用过程，需要等待所有输出返回。close 返回之后，HAL 不再允许调用 <code>camera3_callback_ops_t</code> 的任何方法</p>
-</li>
-<li><p>当错误发生,或者有异步事件时, HAL 调用 <code>camera3_callback_ops_t-&gt;notify()</code> 通知 Framework。当发生 <strong>fatal error</strong> 之后，HAL 应该按照 <strong>close</strong> 类似的处理流程，取消或强制执行完所有任务之后再调用 <code>notify</code>, 确保 Framework 在此期间不会收到任何回调。</p>
-</li>
-</ol>
-
+          <p>Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 <a href="Android-HAL-Intro">Android HAL</a> 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。</p>
+<p>不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不停演进。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 <code>android.hardware.Camera</code> API, 已经不再被支持。推荐实现 v3.2 及以上。</p>
+<p>模块名称定义如下，加载模块时根据模块名称搜索对应的动态库 <code>camera.variant.so</code>。</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_HARDWARE_MODULE_ID <span class="meta-string">"camera"</span></span></span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/23/Android-Camera-HAL-Intro/#more" rel="contents">
+                Read more »
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/10/23/Android-Camera-HAL-Intro/" data-id="ckgloj99w00010498bp8absir" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-Android-HAL-Intro" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/22/Android-HAL-Intro/" class="article-date">
-  <time datetime="2020-10-22T02:48:12.000Z" itemprop="datePublished">2020-10-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/android-hal/">android hal</a>
-  </div>
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/22/Android-HAL-Intro/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/22/Android-HAL-Intro/">Android HAL 介绍</a>
-    </h1>
-  
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xbwee">
+      <meta itemprop="description" content="技术博客，杂记，随笔">
+    </span>
 
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xbwee's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/22/Android-HAL-Intro/" class="post-title-link" itemprop="url">Android HAL 介绍</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-22 10:48:12" itemprop="dateCreated datePublished" datetime="2020-10-22T10:48:12+08:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-23 11:39:06" itemprop="dateModified" datetime="2020-10-23T11:39:06+08:00">2020-10-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android-hal/" itemprop="url" rel="index"><span itemprop="name">android hal</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time ≈</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>一个硬件设备对应一个模块（动态库），可以各自独立更新，模块版本与设备版本需要保持兼容性，也就是特定版本的模块，只能加载与之兼容的设备。</p>
+          <p>一个硬件设备对应一个模块（动态库），可以各自独立更新，模块版本与设备版本需要保持兼容性，也就是特定版本的模块，只能加载与之兼容的设备。</p>
 <p>模块封装了该类型设备的通用操作，接口很少发生变动或者只是增加新接口，确保二进制兼容性，兼容低版本设备。</p>
 <p>设备封装了特定版本的硬件设备，接口变化更频繁，类似camera 从 HALv1, HALv2 到目前的 HALv3，封装成不同的设备子类，具体硬件根据其硬件特性选择实现不同版本的 device 接口。</p>
 <p><code>hw_device_t</code> 作为 device 的基类，放置于继承的具体设备类型 struct 子类的第一个位置，好处是首地址相同，可以直接做类型转换。子类型需要实现对应版本的接口函数，<br><code>hw_module_t</code> 作为 module 的基类，放置于继承的具体模块类型 struct 子类的第一个位置，好处是首地址相同，可以直接做类型转换。基类定义了唯一一个接口函数 <code>hw_module_methods_t.open</code>, 打开硬件设备。所有模块都需要实现该接口。不同类型的模块可以定义自己的接口函数，比如 camera, gralloc, hwcomposer 等等</p>
-<h2 id="模块加载"><a href="#模块加载" class="headerlink" title="模块加载"></a>模块加载</h2><p>指定模块名称 <strong>MODULE_ID</strong>，加载时根据模块名称查找对应的动态库并加载，获取模块结构体对象地址，调用 <strong>open device</strong> 打开硬件设备，即可使用设备提供的功能。</p>
-<p>路径查找，先根据 variant 确定动态库后缀名称，<code>&lt;MODULE_ID&gt;.variant.so</code>，按优先级依次是：</p>
-<ol>
-<li><strong>ro.hardware</strong></li>
-<li><strong>ro.product.board</strong></li>
-<li><strong>ro.board.platform</strong></li>
-<li><strong>ro.arch</strong></li>
-</ol>
-<p>完整名称确定后，按照如下优先级查找对应路径：</p>
-<ol>
-<li><strong>/odm/lib64/hw</strong></li>
-<li><strong>/vendor/lib64/hw</strong></li>
-<li><strong>/system/lib64/hw</strong></li>
-</ol>
-<p>所有模块的 <code>hw_module_t.hal_api_version</code> 字段必须填入 <code>HARDWARE_HAL_API_VERSION</code>，该值目前取值是 <strong>1.0</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; libhardware/include/hardware/hardware.h</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * The current HAL API version.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * All module implementations must set the hw_module_t.hal_api_version field</span></span><br><span class="line"><span class="comment"> * to this value when declaring the module with HAL_MODULE_INFO_SYM.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Note that previous implementations have always set this field to 0.</span></span><br><span class="line"><span class="comment"> * Therefore, libhardware HAL API will always consider versions 0.0 and 1.0</span></span><br><span class="line"><span class="comment"> * to be 100% binary compatible.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HARDWARE_HAL_API_VERSION HARDWARE_MAKE_API_VERSION(1, 0)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Name of the hal_module_info</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_MODULE_INFO_SYM         HMI</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Name of the hal_module_info as a string</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_MODULE_INFO_SYM_AS_STR  <span class="meta-string">&quot;HMI&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Get the module info associated with a module by id.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return: 0 == success, &lt;0 == error and *module == NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hw_get_module</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *id, <span class="keyword">const</span> struct <span class="keyword">hw_module_t</span> **<span class="keyword">module</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; hardware/libhardware/hardware.c</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Base path of the hal modules */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(__LP64__)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_LIBRARY_PATH1 <span class="meta-string">&quot;/system/lib64/hw&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_LIBRARY_PATH2 <span class="meta-string">&quot;/vendor/lib64/hw&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_LIBRARY_PATH3 <span class="meta-string">&quot;/odm/lib64/hw&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_LIBRARY_PATH1 <span class="meta-string">&quot;/system/lib/hw&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_LIBRARY_PATH2 <span class="meta-string">&quot;/vendor/lib/hw&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_LIBRARY_PATH3 <span class="meta-string">&quot;/odm/lib/hw&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> *variant_keys[] = &#123;</span><br><span class="line">    <span class="string">&quot;ro.hardware&quot;</span>,  <span class="comment">/* This goes first so that it can pick up a different</span></span><br><span class="line"><span class="comment">                       file on the emulator. */</span></span><br><span class="line">    <span class="string">&quot;ro.product.board&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ro.board.platform&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ro.arch&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Load the file defined by the variant and if successful</span></span><br><span class="line"><span class="comment"> * return the dlopen handle and the hmi.</span></span><br><span class="line"><span class="comment"> * @return 0 = success, !0 = failure.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">load</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *id,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">const</span> <span class="keyword">char</span> *path,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">const</span> struct <span class="keyword">hw_module_t</span> **pHmi)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> status = -EINVAL;</span><br><span class="line">    <span class="keyword">void</span> *handle = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hw_module_t</span> *<span class="title">hmi</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(path, RTLD_NOW);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Get the address of the struct hal_module_info. */</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *sym = HAL_MODULE_INFO_SYM_AS_STR;</span><br><span class="line">    hmi = (struct <span class="keyword">hw_module_t</span> *)dlsym(handle, sym);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Check that the id matches */</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(id, hmi-&gt;id) != <span class="number">0</span>) &#123;</span><br><span class="line">        ALOGE(<span class="string">&quot;load: id=%s != hmi-&gt;id=%s&quot;</span>, id, hmi-&gt;id);</span><br><span class="line">        status = -EINVAL;</span><br><span class="line">        <span class="keyword">goto</span> done;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hmi-&gt;dso = handle;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* success */</span></span><br><span class="line">    status = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    *pHmi = hmi;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>举个示例，gralloc 的默认实现。</p>
-<ol>
-<li>首先定义模块名称 MODULE_ID 是 “gralloc”，需要写入对应的 <code>hw_module_t.id</code> 字段，加载模块时会判断是否匹配。则对应动态库是 “gralloc.variant.so”, variant 会在加载时搜索确定。</li>
-<li>其次是定义全局可见，并且名称固定为 <code>HAL_MODULE_INFO_SYM</code> 的结构体变量，模块加载时透过 <code>dlsym</code> 搜索该变量，获取到结构体对象地址。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; libhardware/include/hardware/gralloc.h</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The id of this module</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GRALLOC_HARDWARE_MODULE_ID <span class="meta-string">&quot;gralloc&quot;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; libhardware/modules/gralloc/gralloc.cpp</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">hw_module_methods_t</span> <span class="title">gralloc_module_methods</span> =</span> &#123;</span><br><span class="line">        .open = gralloc_device_open</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">private_module_t</span> <span class="title">HAL_MODULE_INFO_SYM</span> =</span> &#123;</span><br><span class="line">    .base = &#123;</span><br><span class="line">        .common = &#123;</span><br><span class="line">            .tag = HARDWARE_MODULE_TAG,</span><br><span class="line">            .version_major = <span class="number">1</span>,</span><br><span class="line">            .version_minor = <span class="number">0</span>,</span><br><span class="line">            .id = GRALLOC_HARDWARE_MODULE_ID,</span><br><span class="line">            .name = <span class="string">&quot;Graphics Memory Allocator Module&quot;</span>,</span><br><span class="line">            .author = <span class="string">&quot;The Android Open Source Project&quot;</span>,</span><br><span class="line">            .methods = &amp;gralloc_module_methods</span><br><span class="line">        &#125;,</span><br><span class="line">        .registerBuffer = gralloc_register_buffer,</span><br><span class="line">        .unregisterBuffer = gralloc_unregister_buffer,</span><br><span class="line">        .lock = gralloc_lock,</span><br><span class="line">        .unlock = gralloc_unlock,</span><br><span class="line">    &#125;,</span><br><span class="line">    .framebuffer = <span class="number">0</span>,</span><br><span class="line">    .flags = <span class="number">0</span>,</span><br><span class="line">    .numBuffers = <span class="number">0</span>,</span><br><span class="line">    .bufferMask = <span class="number">0</span>,</span><br><span class="line">    .lock = PTHREAD_MUTEX_INITIALIZER,</span><br><span class="line">    .currentBuffer = <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Every hardware module must have a data structure named HAL_MODULE_INFO_SYM</span></span><br><span class="line"><span class="comment"> * and the fields of this data structure must begin with hw_module_t</span></span><br><span class="line"><span class="comment"> * followed by module specific information.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">gralloc_module_t</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hw_module_t</span> <span class="title">common</span>;</span></span><br><span class="line">    ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><code>gralloc.default.so</code> 符号表，可以看到有 <strong>HMI</strong> 符号，获取到的就是 <code>private_module_t</code>结构体对象地址</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Symbol table &#x27;.dynsym&#x27; contains 33 entries:</span><br><span class="line">   Num:    Value          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     <span class="number">0</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  LOCAL  DEFAULT  UND</span><br><span class="line">    <span class="number">24</span>: <span class="number">0000000000002</span>a18   <span class="number">332</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z14fb_device_openPK11hw_</span><br><span class="line">    <span class="number">25</span>: <span class="number">0000000000002e94</span>   <span class="number">200</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z25gralloc_unregister_bu</span><br><span class="line">    <span class="number">26</span>: <span class="number">0000000000004010</span>   <span class="number">688</span> OBJECT  GLOBAL DEFAULT   <span class="number">15</span> HMI</span><br><span class="line">    <span class="number">27</span>: <span class="number">0000000000003060</span>   <span class="number">124</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z12gralloc_lockPK16grall</span><br><span class="line">    <span class="number">28</span>: <span class="number">00000000000030</span>dc   <span class="number">116</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z14gralloc_unlockPK16gra</span><br><span class="line">    <span class="number">29</span>: <span class="number">0000000000002f</span>f8   <span class="number">104</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z15terminateBufferPK16gr</span><br><span class="line">    <span class="number">30</span>: <span class="number">0000000000002504</span>  <span class="number">1132</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z20mapFrameBufferLockedP</span><br><span class="line">    <span class="number">31</span>: <span class="number">0000000000002</span>d68   <span class="number">300</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z23gralloc_register_buff</span><br><span class="line">    <span class="number">32</span>: <span class="number">0000000000002f</span>5c   <span class="number">156</span> FUNC    GLOBAL DEFAULT   <span class="number">13</span> _Z9mapBufferPK16gralloc_m</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/22/Android-HAL-Intro/#more" rel="contents">
+                Read more »
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/10/22/Android-HAL-Intro/" data-id="ckgloj99r00000498b0841we2" class="article-share-link">Share</a>
-      
-      
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xbwee</p>
+  <div class="site-description" itemprop="description">技术博客，杂记，随笔</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  © 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xbwee</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">22k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">20 mins.</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> &amp; <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-</article>
-
 
   
-
-
-</section>
-        
-          <aside id="sidebar">
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android-hal/">android hal</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/camera-hal/">camera hal</a></li></ul>
-    </div>
-  </div>
+  
+  
 
 
-  
-    
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li></ul>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/10/23/Android-Camera-HAL-Intro/">Android Camera HAL 介绍</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/22/Android-HAL-Intro/">Android HAL 介绍</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 xbwee<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &amp; <a href="http://github.io/" target="_blank">github page</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
 
 
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
   
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
-</body>
-</html>
+<script src="/bundle.js"></script></body></html>

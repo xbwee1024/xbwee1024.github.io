@@ -18,7 +18,7 @@ summary: android hal 介绍，主要是 `hw_module_t`, `hw_device_t` 以及模�
 
 `hw_device_t` 作为 device 的基类，放置于继承的具体设备类型 struct 子类的第一个位置，好处是首地址相同，可以直接做类型转换。子类型需要实现对应版本的接口函数，
 `hw_module_t` 作为 module 的基类，放置于继承的具体模块类型 struct 子类的第一个位置，好处是首地址相同，可以直接做类型转换。基类定义了唯一一个接口函数 `hw_module_methods_t.open`, 打开硬件设备。所有模块都需要实现该接口。不同类型的模块可以定义自己的接口函数，比如 camera, gralloc, hwcomposer 等等
-
+<!--more-->
 
 
 ## 模块加载

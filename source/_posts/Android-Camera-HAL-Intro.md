@@ -10,11 +10,16 @@ categories: camera hal
 summary: android camera hal 介绍
 ---
 
-模块名称定义如下，加载模块时根据模块名称搜索对应的动态库。
+Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 [Android HAL](Android-HAL-Intro) 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。
+
+不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不停演进。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 `android.hardware.Camera` API, 已经不再被支持。推荐实现 v3.2 及以上。
+
+模块名称定义如下，加载模块时根据模块名称搜索对应的动态库 `camera.variant.so`。
 ```c++
 #define CAMERA_HARDWARE_MODULE_ID "camera"
 ```
 
+<!--more-->
 
 ```c++
 >>> libhardware/include/hardware/camera_common.h

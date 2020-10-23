@@ -606,118 +606,91 @@ NexT.motion.middleWares = {
   }
 };
 ;
-/* global NexT, CONFIG, Velocity */
+/* global NexT, CONFIG */
+
+var Affix = {
+  init: function(element, options) {
+    this.element = element;
+    this.offset = options || 0;
+    this.affixed = null;
+    this.unpin = null;
+    this.pinnedOffset = null;
+    this.checkPosition();
+    window.addEventListener('scroll', this.checkPosition.bind(this));
+    window.addEventListener('click', this.checkPositionWithEventLoop.bind(this));
+    window.matchMedia('(min-width: 992px)').addListener(event => {
+      if (event.matches) {
+        this.offset = NexT.utils.getAffixParam();
+        this.checkPosition();
+      }
+    });
+  },
+  getState: function(scrollHeight, height, offsetTop, offsetBottom) {
+    let scrollTop = window.scrollY;
+    let targetHeight = window.innerHeight;
+    if (offsetTop != null && this.affixed === 'top') {
+      if (document.querySelector('.content-wrap').offsetHeight < offsetTop) return 'top';
+      return scrollTop < offsetTop ? 'top' : false;
+    }
+    if (this.affixed === 'bottom') {
+      if (offsetTop != null) return this.unpin <= this.element.getBoundingClientRect().top ? false : 'bottom';
+      return scrollTop + targetHeight <= scrollHeight - offsetBottom ? false : 'bottom';
+    }
+    let initializing = this.affixed === null;
+    let colliderTop = initializing ? scrollTop : this.element.getBoundingClientRect().top + scrollTop;
+    let colliderHeight = initializing ? targetHeight : height;
+    if (offsetTop != null && scrollTop <= offsetTop) return 'top';
+    if (offsetBottom != null && (colliderTop + colliderHeight >= scrollHeight - offsetBottom)) return 'bottom';
+    return false;
+  },
+  getPinnedOffset: function() {
+    if (this.pinnedOffset) return this.pinnedOffset;
+    this.element.classList.remove('affix-top', 'affix-bottom');
+    this.element.classList.add('affix');
+    return (this.pinnedOffset = this.element.getBoundingClientRect().top);
+  },
+  checkPositionWithEventLoop() {
+    setTimeout(this.checkPosition.bind(this), 1);
+  },
+  checkPosition: function() {
+    if (window.getComputedStyle(this.element).display === 'none') return;
+    let height = this.element.offsetHeight;
+    let { offset } = this;
+    let offsetTop = offset.top;
+    let offsetBottom = offset.bottom;
+    let { scrollHeight } = document.body;
+    let affix = this.getState(scrollHeight, height, offsetTop, offsetBottom);
+    if (this.affixed !== affix) {
+      if (this.unpin != null) this.element.style.top = '';
+      let affixType = 'affix' + (affix ? '-' + affix : '');
+      this.affixed = affix;
+      this.unpin = affix === 'bottom' ? this.getPinnedOffset() : null;
+      this.element.classList.remove('affix', 'affix-top', 'affix-bottom');
+      this.element.classList.add(affixType);
+    }
+    if (affix === 'bottom') {
+      this.element.style.top = scrollHeight - height - offsetBottom + 'px';
+    }
+  }
+};
+
+NexT.utils.getAffixParam = function() {
+  const sidebarOffset = CONFIG.sidebar.offset || 12;
+
+  let headerOffset = document.querySelector('.header-inner').offsetHeight;
+  let footerOffset = document.querySelector('.footer').offsetHeight;
+
+  document.querySelector('.sidebar').style.marginTop = headerOffset + sidebarOffset + 'px';
+
+  return {
+    top   : headerOffset,
+    bottom: footerOffset
+  };
+};
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  var isRight = CONFIG.sidebar.position === 'right';
-  var SIDEBAR_WIDTH = CONFIG.sidebar.width || 320;
-  var SIDEBAR_DISPLAY_DURATION = 200;
-  var mousePos = {};
-
-  var sidebarToggleLines = {
-    lines: document.querySelector('.sidebar-toggle'),
-    init : function() {
-      this.lines.classList.remove('toggle-arrow', 'toggle-close');
-    },
-    arrow: function() {
-      this.lines.classList.remove('toggle-close');
-      this.lines.classList.add('toggle-arrow');
-    },
-    close: function() {
-      this.lines.classList.remove('toggle-arrow');
-      this.lines.classList.add('toggle-close');
-    }
-  };
-
-  var sidebarToggleMotion = {
-    sidebarEl       : document.querySelector('.sidebar'),
-    isSidebarVisible: false,
-    init            : function() {
-      sidebarToggleLines.init();
-
-      window.addEventListener('mousedown', this.mousedownHandler.bind(this));
-      window.addEventListener('mouseup', this.mouseupHandler.bind(this));
-      document.querySelector('#sidebar-dimmer').addEventListener('click', this.clickHandler.bind(this));
-      document.querySelector('.sidebar-toggle').addEventListener('click', this.clickHandler.bind(this));
-      document.querySelector('.sidebar-toggle').addEventListener('mouseenter', this.mouseEnterHandler.bind(this));
-      document.querySelector('.sidebar-toggle').addEventListener('mouseleave', this.mouseLeaveHandler.bind(this));
-      window.addEventListener('sidebar:show', this.showSidebar.bind(this));
-      window.addEventListener('sidebar:hide', this.hideSidebar.bind(this));
-    },
-    mousedownHandler: function(event) {
-      mousePos.X = event.pageX;
-      mousePos.Y = event.pageY;
-    },
-    mouseupHandler: function(event) {
-      var deltaX = event.pageX - mousePos.X;
-      var deltaY = event.pageY - mousePos.Y;
-      var clickingBlankPart = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY)) < 20 && event.target.matches('.main');
-      if (this.isSidebarVisible && (clickingBlankPart || event.target.matches('img.medium-zoom-image, .fancybox img'))) {
-        this.hideSidebar();
-      }
-    },
-    clickHandler: function() {
-      this.isSidebarVisible ? this.hideSidebar() : this.showSidebar();
-    },
-    mouseEnterHandler: function() {
-      if (!this.isSidebarVisible) {
-        sidebarToggleLines.arrow();
-      }
-    },
-    mouseLeaveHandler: function() {
-      if (!this.isSidebarVisible) {
-        sidebarToggleLines.init();
-      }
-    },
-    showSidebar: function() {
-      this.isSidebarVisible = true;
-      this.sidebarEl.classList.add('sidebar-active');
-      if (typeof Velocity === 'function') {
-        Velocity(document.querySelectorAll('.sidebar .motion-element'), isRight ? 'transition.slideRightIn' : 'transition.slideLeftIn', {
-          stagger: 50,
-          drag   : true
-        });
-      }
-
-      sidebarToggleLines.close();
-      NexT.utils.isDesktop() && window.anime(Object.assign({
-        targets : document.body,
-        duration: SIDEBAR_DISPLAY_DURATION,
-        easing  : 'linear'
-      }, isRight ? {
-        'padding-right': SIDEBAR_WIDTH
-      } : {
-        'padding-left': SIDEBAR_WIDTH
-      }));
-    },
-    hideSidebar: function() {
-      this.isSidebarVisible = false;
-      this.sidebarEl.classList.remove('sidebar-active');
-
-      sidebarToggleLines.init();
-      NexT.utils.isDesktop() && window.anime(Object.assign({
-        targets : document.body,
-        duration: SIDEBAR_DISPLAY_DURATION,
-        easing  : 'linear'
-      }, isRight ? {
-        'padding-right': 0
-      } : {
-        'padding-left': 0
-      }));
-    }
-  };
-  sidebarToggleMotion.init();
-
-  function updateFooterPosition() {
-    var footer = document.querySelector('.footer');
-    var containerHeight = document.querySelector('.header').offsetHeight + document.querySelector('.main').offsetHeight + footer.offsetHeight;
-    footer.classList.toggle('footer-fixed', containerHeight <= window.innerHeight);
-  }
-
-  updateFooterPosition();
-  window.addEventListener('resize', updateFooterPosition);
-  window.addEventListener('scroll', updateFooterPosition);
+  Affix.init(document.querySelector('.sidebar-inner'), NexT.utils.getAffixParam());
 });
 ;
 /* global NexT, CONFIG, Velocity */

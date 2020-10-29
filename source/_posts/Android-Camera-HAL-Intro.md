@@ -23,7 +23,7 @@ Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都�
 
 ## HAL 接口介绍
 
-模块接口，camera 通用方法，全局信息的查询。调用时要注意有些方法是无效的，调用前一定要做判空处理，兼容性查询 API 说明。
+> 模块接口，camera 通用方法，全局信息的查询。调用时要注意有些方法是无效的，调用前一定要做判空处理，兼容性查询 API 说明。
 
 ```c++
 >>> libhardware/include/hardware/camera_common.h
@@ -336,7 +336,7 @@ typedef struct camera3_device_ops {
 
 ## module API version
 
-当前推荐版本是 `CAMERA_MODULE_API_VERSION_2_5`
+> 当前推荐版本是 `CAMERA_MODULE_API_VERSION_2_5`
 
 ```c++
 >>> include/hardware/camera_common.h
@@ -400,7 +400,7 @@ camera_module_t.common.module_api_version
 
 ## device API version 
 
-当前推荐使用的版本是 `CAMERA_DEVICE_API_VERSION_3_5`
+> 当前推荐使用的版本是 `CAMERA_DEVICE_API_VERSION_3_5`
 
 ```c++
 /**

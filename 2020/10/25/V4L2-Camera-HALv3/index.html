@@ -28,7 +28,7 @@
 <meta property="og:description" content="camera.v4l2 实现了 Camera HALv3 接口，底层调用了 Video For Linux 2(V4L2)，因此适用范围比较广泛，可以适配兼容 V4L2 接口的所有设备。不过相对于 Android Camera 来说，V4L2 存在一些局限性，造成一些功能缺失是正常的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-25T06:13:21.000Z">
-<meta property="article:modified_time" content="2020-10-30T08:48:23.936Z">
+<meta property="article:modified_time" content="2020-10-30T12:15:26.662Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="usbcamera">
 <meta name="twitter:card" content="summary">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-30 16:48:23" itemprop="dateModified" datetime="2020-10-30T16:48:23+08:00">2020-10-30</time>
+                <time title="修改时间：2020-10-30 20:15:26" itemprop="dateModified" datetime="2020-10-30T20:15:26+08:00">2020-10-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,14 +245,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -278,7 +278,28 @@
 </ul>
 <h2 id="HAL-代码解析"><a href="#HAL-代码解析" class="headerlink" title="HAL 代码解析"></a>HAL 代码解析</h2><p><strong>V4L2 Camera HAL</strong> 包含 3 个部分：HALv3 Camera 实现， V4L2 wrapper，以及 Metadata</p>
 <p>同时，你应该要了解一下 <strong>Android Framework</strong> 是如何与 <strong>HAL</strong> 打交道的，可以参考 <a href="https://www.xbwee.space/2020/10/23/Android-Camera-HAL-Intro/">Android Camera HAL 介绍</a></p>
-<h3 id="Camera-amp-HAL-接口"><a href="#Camera-amp-HAL-接口" class="headerlink" title="Camera &amp; HAL 接口"></a>Camera &amp; HAL 接口</h3><h3 id="V4L2-wrapper-实现"><a href="#V4L2-wrapper-实现" class="headerlink" title="V4L2 wrapper 实现"></a>V4L2 wrapper 实现</h3><h3 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h3><h2 id="V4L2-不足之处"><a href="#V4L2-不足之处" class="headerlink" title="V4L2 不足之处"></a>V4L2 不足之处</h2><ul>
+<h3 id="Camera-amp-HAL-接口"><a href="#Camera-amp-HAL-接口" class="headerlink" title="Camera &amp; HAL 接口"></a>Camera &amp; HAL 接口</h3><p>接口实现主要是这两个类：<code>Camera</code>, <code>V4L2CameraHal</code></p>
+<p><code>V4L2CameraHAL</code> 主要负责相机系统初始化，创建时，会搜索 <code>dev/video*</code> 设备节点，并查询是否满足 <code>V4L2_CAP_VIDEO_CAPTURE</code> 然后创建对应的 <code>V4L2Camera</code> 对象，并且对 Framework 可见。后续流程调用会被 dispatch 到特定的设备节点。</p>
+<p><code>Camera</code> 类实现了 camera 设备的通用操作，打开/关闭设备、configuring streams、preparing and tradking requests 等等。具体的拍照、设置流程则是由其子类 <code>V4L2Camera</code> 实现。</p>
+<p><code>Camera</code> 类在调用具体流程的时候，会应用上 <code>V4L2Camera</code> 初始化之后的 <code>Metadata</code> 属性，比如 <strong>in-flight</strong> request per stream 数量的限制。换句话说，<code>Camera</code> 类实现具体的 HAL 调用流程，与而具体的设备无关，而 <code>V4L2Camera</code> 负责设备相关的属性设置、功能实现（透过 <code>V4L2Wrapper</code> 类）。所以理论上，可以把 V4L2 实现换成其它某种设备实现，只要传递正确的 metadata 信息，<code>Camera</code> 类依然会按照预期的工作。</p>
+<h3 id="V4L2-具体实现"><a href="#V4L2-具体实现" class="headerlink" title="V4L2 具体实现"></a>V4L2 具体实现</h3><p><code>V4L2Camera</code> 实现所有拍照功能。它包含一些方法用来获取或设置参数，但它的核心能力主要是在 <code>request queue</code> 上。 <code>Camera</code> 提交 <code>CaptureRequest</code> 到 <code>request queue</code> 排队，<code>V4L2Camera</code> 异步地从队列里取出来执行，处理过程主要分三个阶段：</p>
+<ul>
+<li>接收 request 请求：收到 request 并放入等待队列。</li>
+<li>enqueue：读取 request 配置并应用到 v4l2 设备，执行拍照，并传递 buffer 给 v4l2 驱动。</li>
+<li>dequeue：从驱动获取到处理完成的 frame，buffer 内容 copy 到 request output 并传递给 <code>Camera</code> 做后续处理（验证结果，填入 <code>CaptureResult</code> 并返回给 Framework）</li>
+</ul>
+<p>这项工作的大部分是 <code>V4L2Wrapper</code> 类完成的，它基于 HAL 的功能需求，包装了 v4l2 ioctls, 提供简单的输入输出调用功能。自动填入 ioctls 需要的常量参数，抽取 HAL 所需信息，同时把相关功能暴露给 Metadata 系统，获取、设置 meta 控制参数。</p>
+<h3 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h3><p><code>Metadata</code> 子系统主要目的是简化 (system/media/camera/docs/docs.html) 的相关操作。顶层是 <code>Metadata</code> 和 <code>PartialMetadataInterface</code> 类，<code>Metadata</code> 类提供高层次功能，包括初始化 <code>static metadata</code>，验证，获取、设定相关配置参数等等，它把这些需求下发给对应的 <code>PartialMetadataInterfaces</code> 模块，各个子模块负责处理自己相关的 metadata 和任务。</p>
+<p>已经实现了几个具体类负责这项功能，主要有 3 类：</p>
+<ul>
+<li>Properties：静态属性, static metadata 等</li>
+<li>Controls：动态属性，或者标示允许值的静态属性</li>
+<li>States：动态的只读的属性</li>
+</ul>
+<p>针对不同的功能需求和不同的 <code>metadata tags</code>, 还有一些更具体的接口和子类型来区分处理。</p>
+<h4 id="Metadata-Factory"><a href="#Metadata-Factory" class="headerlink" title="Metadata Factory"></a>Metadata Factory</h4><p>为了满足 HAL 规范的要求, V4L2 Camera HAL 使用一个 metadata factory 工厂方法，初始化 100+ metadata 参数，大多数参数都是固定值，只有少部分对应到 v4l2 驱动相关的参数。</p>
+<p>这套 HAL 实现最初是为了提供给 <strong>Raspberry Pi</strong> camera module v2.1 使用的，所以大多固定默认值的设置主要是适配它的相机模组。</p>
+<h2 id="V4L2-不足之处"><a href="#V4L2-不足之处" class="headerlink" title="V4L2 不足之处"></a>V4L2 不足之处</h2><ul>
 <li>不支持多个 <code>stream</code>，如果 <strong>preview</strong> 与 <strong>capture</strong> 格式不一样，必须重新配置 <code>stream</code>; 因此不支持 <strong>Android Camera (v1) API</strong>，只能使用 <strong>Camera2 API</strong></li>
 <li>有些 metadata 信息无法从 V4L2 获取到，比如一些物理属性</li>
 <li>Android 系统实现要求 HAL 必须支持 YUV420， JPEG 以及 Graphics 子系统定义的（implementation defined），但实际上只有少数 camera 完整支持这几种格式（比如树莓派相机），因此 HAL 内部实现了格式转换以扩展其适用范围。</li>
@@ -386,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">当前状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">编译方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HAL-%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">HAL 代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Camera-amp-HAL-%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.1.</span> <span class="nav-text">Camera &amp; HAL 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V4L2-wrapper-%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.2.</span> <span class="nav-text">V4L2 wrapper 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Metadata"><span class="nav-number">4.3.</span> <span class="nav-text">Metadata</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V4L2-%E4%B8%8D%E8%B6%B3%E4%B9%8B%E5%A4%84"><span class="nav-number">5.</span> <span class="nav-text">V4L2 不足之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">已知问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">当前状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">编译方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HAL-%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">HAL 代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Camera-amp-HAL-%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.1.</span> <span class="nav-text">Camera &amp; HAL 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V4L2-%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.2.</span> <span class="nav-text">V4L2 具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Metadata"><span class="nav-number">4.3.</span> <span class="nav-text">Metadata</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Metadata-Factory"><span class="nav-number">4.3.1.</span> <span class="nav-text">Metadata Factory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V4L2-%E4%B8%8D%E8%B6%B3%E4%B9%8B%E5%A4%84"><span class="nav-number">5.</span> <span class="nav-text">V4L2 不足之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">已知问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -452,12 +473,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">24k</span>
+    <span title="站点总字数">25k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22 分钟</span>
+    <span title="站点阅读时长">23 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

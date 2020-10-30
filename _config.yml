@@ -9,7 +9,7 @@ description: '技术博客，杂记，随笔'
 keywords:
 author: xbwee
 avatar: 
-language: zh-Hans
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
@@ -154,3 +154,145 @@ leancloud_counter_security:
   server_url: https://4ggdykjv.lc-cn-n1-shared.com
   username: xbwee
   password: "123456"
+
+
+
+
+
+
+theme_config:
+  # ---------------------------------------------------------------
+  # Site Information Settings
+  # See: https://theme-next.org/docs/getting-started/
+  # ---------------------------------------------------------------
+
+  favicon:
+    small: /images/favicon-16x16-next.png
+    medium: /images/favicon-32x32-next.png
+    apple_touch_icon: /images/apple-touch-icon-next.png
+    safari_pinned_tab: /images/logo.svg
+    #android_manifest: /images/manifest.json
+    #ms_browserconfig: /images/browserconfig.xml
+
+  # Show multilingual switcher in footer.
+  language_switcher: false
+
+  footer:
+    # Specify the date when the site was setup. If not defined, current year will be used.
+    #since: 2015
+
+    # Icon between year and copyright info.
+    icon:
+      # Icon name in Font Awesome. See: https://fontawesome.com/icons
+      name: fa fa-heart
+      # If you want to animate the icon, set it to true.
+      animated: true
+      # Change the color of icon, using Hex Code.
+      color: "#ff0000"
+
+    # If not defined, `author` from Hexo `_config.yml` will be used.
+    copyright:
+
+    # Powered by Hexo & NexT
+    powered: true
+
+    # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
+    beian:
+      enable: false
+      icp:
+      # The digit in the num of gongan beian.
+      gongan_id:
+      # The full num of gongan beian.
+      gongan_num:
+      # The icon for gongan beian. See: http://www.beian.gov.cn/portal/download
+      gongan_icon_url:
+
+  # Creative Commons 4.0 International License.
+  # See: https://creativecommons.org/share-your-work/licensing-types-examples
+  # Available values of license: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+  # You can set a language value if you prefer a translated version of CC license, e.g. deed.zh
+  # CC licenses are available in 39 languages, you can find the specific and correct abbreviation you need on https://creativecommons.org
+  creative_commons:
+    license: by-nc-sa
+    sidebar: true
+    post: true
+    language:
+
+
+  # ---------------------------------------------------------------
+  # Scheme Settings
+  # ---------------------------------------------------------------
+
+  # Schemes
+  # scheme: Muse
+  #scheme: Mist
+  scheme: Pisces
+  #scheme: Gemini
+
+  # Dark Mode
+  darkmode: false
+
+
+  # ---------------------------------------------------------------
+  # Menu Settings
+  # ---------------------------------------------------------------
+
+  # Usage: `Key: /link/ || icon`
+  # Key is the name of menu item. If the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used. Key is case-senstive.
+  # Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
+  # When running the site in a subdirectory (e.g. yoursite.com/blog), remove the leading slash from link value (/archives -> archives).
+  # External url should start with http:// or https://
+  menu:
+    home: / || fa fa-home
+    about: /about/ || fa fa-user
+    tags: /tags/ || fa fa-tags
+    categories: /categories/ || fa fa-th
+    archives: /archives/ || fa fa-archive
+    #schedule: /schedule/ || fa fa-calendar
+    #sitemap: /sitemap.xml || fa fa-sitemap
+    #commonweal: /404/ || fa fa-heartbeat
+    hot: /hot/ || fa fa-signal
+
+  # Enable / Disable menu icons / item badges.
+  menu_settings:
+    icons: true
+    badges: true
+
+  # Valine
+  # For more information: https://valine.js.org, https://github.com/xCss/Valine
+  valine:
+    enable: true
+    appid: 4GgdYKJV5fgexya6xmgU7OyD-gzGzoHsz
+    appkey: 4UK5s8XhJdCYQ9gy48gp9CJf
+    notify: false # Mail notifier
+    verify: false # Verification code
+    placeholder: Just go go # Comment box placeholder
+    avatar: mm # Gravatar style
+    guest_info: nick,mail,link # Custom comment header
+    pageSize: 10 # Pagination size
+    language: zh-CN
+    visitor: true # Article reading statistic
+    comment_count: true # If false, comment count will only be displayed in post page, not in home page
+    recordIP: false # Whether to record the commenter IP
+    serverURLs: # When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)
+    #post_meta_order: 0
+
+  # Show number of visitors of each article.
+  # You can visit https://leancloud.cn to get AppID and AppKey.
+  # AppID and AppKey are recommended to be the same as valine's for counter compatibility.
+  # Do not enable both `valine.visitor` and `leancloud_visitors`.
+  leancloud_visitors:
+    enable: false
+    app_id: 4GgdYKJV5fgexya6xmgU7OyD-gzGzoHsz
+    app_key: 4UK5s8XhJdCYQ9gy48gp9CJf
+    # Required for apps from CN region
+    server_url: https://4ggdykjv.lc-cn-n1-shared.com
+    # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
+    # If you don't care about security in leancloud counter and just want to use it directly
+    # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
+    security: true
+
+    # Valine
+    # valine: //cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js
+    # valine: //cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js
+    valine: https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js

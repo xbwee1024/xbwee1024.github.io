@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"www.xbwee.space","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="camera.v4l2 实现了 Camera HALv3 接口，底层调用了 **Video For Linux 2(V4L2)**，因此适用范围比较广泛，可以适配兼容 V4L2 接口的所有设备。不过相对于比较复杂的 Android Camera 来说，V4L2 存在一些局限性，造成一些功能缺失是正常的。">
+  <meta name="description" content="camera.v4l2 实现了 Camera HALv3 接口，底层调用了 Video For Linux 2(V4L2)，因此适用范围比较广泛，可以适配兼容 V4L2 接口的所有设备。不过相对于 Android Camera 来说，V4L2 存在一些局限性，造成一些功能缺失是正常的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="V4L2 Camera HALv3">
 <meta property="og:url" content="https://www.xbwee.space/2020/10/25/V4L2-Camera-HALv3/index.html">
 <meta property="og:site_name" content="xbwee&#39;s blogs">
-<meta property="og:description" content="camera.v4l2 实现了 Camera HALv3 接口，底层调用了 **Video For Linux 2(V4L2)**，因此适用范围比较广泛，可以适配兼容 V4L2 接口的所有设备。不过相对于比较复杂的 Android Camera 来说，V4L2 存在一些局限性，造成一些功能缺失是正常的。">
+<meta property="og:description" content="camera.v4l2 实现了 Camera HALv3 接口，底层调用了 Video For Linux 2(V4L2)，因此适用范围比较广泛，可以适配兼容 V4L2 接口的所有设备。不过相对于 Android Camera 来说，V4L2 存在一些局限性，造成一些功能缺失是正常的。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-25T06:13:21.000Z">
-<meta property="article:modified_time" content="2020-10-30T08:34:16.779Z">
+<meta property="article:modified_time" content="2020-10-30T08:38:01.905Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="usbcamera">
 <meta name="twitter:card" content="summary">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-30 16:34:16" itemprop="dateModified" datetime="2020-10-30T16:34:16+08:00">2020-10-30</time>
+                <time title="修改时间：2020-10-30 16:38:01" itemprop="dateModified" datetime="2020-10-30T16:38:01+08:00">2020-10-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,7 +264,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><code>camera.v4l2</code> 实现了 <strong>Camera HALv3</strong> 接口，底层调用了 **Video For Linux 2(V4L2)**，因此适用范围比较广泛，可以适配兼容 V4L2 接口的所有设备。不过相对于比较复杂的 Android Camera 来说，V4L2 存在一些局限性，造成一些功能缺失是正常的。</p>
+        <p><code>camera.v4l2</code> 实现了 <strong>Camera HALv3</strong> 接口，底层调用了 <code>Video For Linux 2(V4L2)</code>，因此适用范围比较广泛，可以适配兼容 <code>V4L2</code> 接口的所有设备。不过相对于 <code>Android Camera</code> 来说，<code>V4L2</code> 存在一些局限性，造成一些功能缺失是正常的。</p>
 <a id="more"></a>
 
 <h2 id="当前状态"><a href="#当前状态" class="headerlink" title="当前状态"></a>当前状态</h2><p><code>camera.v4l2</code> 可以自由使用，但是它不是由 <strong>Android Camera team</strong> 官方维护的， 实际上官方维护的是另外一个随着 <strong>Android P</strong> 一起更新发布的实现：<a target="_blank" rel="noopener" href="https://source.android.com/devices/camera/external-usb-cameras">External USB Cameras</a></p>
@@ -276,7 +276,7 @@
 <li>camera 必须支持 <code>BGR32</code>, <code>YUV420</code> 和 <code>JPEG</code> 格式</li>
 <li>设备上的 <strong>gralloc</strong> 和其它 <strong>graphics module</strong> 必须使用 <code>HAL_PIXEL_FORMAT_RGBA_8888</code> 作为 <code>HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED</code></li>
 </ul>
-<h2 id="HAL-代码解析"><a href="#HAL-代码解析" class="headerlink" title="HAL 代码解析"></a>HAL 代码解析</h2><p><strong>V4L2 Camera HAL</strong> 包含 3 个部分：HALv3 Camera 实现， V4L2 wrapper 实现，以及 Metadata 系统</p>
+<h2 id="HAL-代码解析"><a href="#HAL-代码解析" class="headerlink" title="HAL 代码解析"></a>HAL 代码解析</h2><p><strong>V4L2 Camera HAL</strong> 包含 3 个部分：HALv3 Camera 实现， V4L2 wrapper，以及 Metadata</p>
 <p>同时，你应该要了解一下 <strong>Android Framework</strong> 是如何与 <strong>HAL</strong> 打交道的，可以参考 <a href="https://www.xbwee.space/2020/10/23/Android-Camera-HAL-Intro/">Android Camera HAL 介绍</a></p>
 <h3 id="Camera-amp-HAL-接口"><a href="#Camera-amp-HAL-接口" class="headerlink" title="Camera &amp; HAL 接口"></a>Camera &amp; HAL 接口</h3><h3 id="V4L2-wrapper-实现"><a href="#V4L2-wrapper-实现" class="headerlink" title="V4L2 wrapper 实现"></a>V4L2 wrapper 实现</h3><h3 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h3><h2 id="V4L2-不足之处"><a href="#V4L2-不足之处" class="headerlink" title="V4L2 不足之处"></a>V4L2 不足之处</h2><ul>
 <li>不支持多个 <code>stream</code>，如果 <strong>preview</strong> 与 <strong>capture</strong> 格式不一样，必须重新配置 <code>stream</code>; 因此不支持 <strong>Android Camera (v1) API</strong>，只能使用 <strong>Camera2 API</strong></li>

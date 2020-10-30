@@ -1,5 +1,5 @@
 ---
-title: hot
+title: 热度排行
 date: 2020-10-30 14:21:52
 comments: false
 ---

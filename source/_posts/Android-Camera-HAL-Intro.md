@@ -5,8 +5,10 @@ cover: false
 toc: true
 mathjax: true
 date: 2020-10-23 10:48:12
-tags:
-categories: camera hal
+tags: camera hal
+categories:
+    - android
+    - camera hal
 summary: android camera hal 介绍
 ---
 

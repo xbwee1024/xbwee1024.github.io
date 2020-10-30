@@ -5,8 +5,10 @@ cover: false
 toc: true
 mathjax: true
 date: 2020-10-22 10:48:12
-tags:
-categories: android hal
+tags: android hal
+categories:
+    - android
+    - hal
 summary: android hal 介绍，主要是 `hw_module_t`, `hw_device_t` 以及模块加载
 ---
 
@@ -14,13 +16,13 @@ summary: android hal 介绍，主要是 `hw_module_t`, `hw_device_t` 以及模�
 
 模块封装了该类型设备的通用操作，接口很少发生变动或者只是增加新接口，确保二进制兼容性，兼容低版本设备。
 
-设备封装了特定版本的硬件设备，接口变化更频繁，类似camera 从 HALv1, HALv2 到目前的 HALv3，封装成不同的设备子类，具体硬件根据其硬件特性选择实现不同版本的 device 接口。
+设备封装了特定版本的硬件设备，接口变化更频繁，类似 **camera** 从 `HALv1`, `HALv2` 到目前的 `HALv3`，封装成不同的设备子类，具体硬件根据其硬件特性选择实现不同版本的 device 接口。
 <!--more-->
 
-`hw_device_t` 作为 device 的基类，放置于继承的具体设备类型 struct 子类的第一个位置，好处是首地址相同，可以直接做类型转换。子类型需要实现对应版本的接口函数，
-`hw_module_t` 作为 module 的基类，放置于继承的具体模块类型 struct 子类的第一个位置，好处是首地址相同，可以直接做类型转换。基类定义了唯一一个接口函数。
+`hw_device_t` 作为 device 的基类，放置于继承的具体设备类型 `struct` 子类的第一个位置，好处是首地址相同，可以直接做类型转换。子类型需要实现对应版本的接口函数，
+`hw_module_t` 作为 module 的基类，放置于继承的具体模块类型 `struct` 子类的第一个位置，好处是首地址相同，可以直接做类型转换。基类定义了唯一一个接口函数。
 
-`hw_module_methods_t.open`, 打开硬件设备。所有模块都需要实现该接口。不同类型的模块可以定义自己的接口函数，比如 camera, gralloc, hwcomposer 等等
+`hw_module_methods_t.open`, 打开硬件设备。所有模块都需要实现该接口。不同类型的模块可以定义自己的接口函数，比如 `camera`, `gralloc`, `hwcomposer` 等等
 
 
 ## 模块加载

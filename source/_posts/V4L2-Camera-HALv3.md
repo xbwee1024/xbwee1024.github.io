@@ -43,13 +43,40 @@ PRODUCT_PROPERTY_OVERRIDES += ro.hardware.camera=v4l2
 
 ### Camera & HAL 接口
 
+接口实现主要是这两个类：`Camera`, `V4L2CameraHal`
 
-### V4L2 wrapper 实现
+`V4L2CameraHAL` 主要负责相机系统初始化，创建时，会搜索 `dev/video*` 设备节点，并查询是否满足 `V4L2_CAP_VIDEO_CAPTURE` 然后创建对应的 `V4L2Camera` 对象，并且对 Framework 可见。后续流程调用会被 dispatch 到特定的设备节点。
 
+`Camera` 类实现了 camera 设备的通用操作，打开/关闭设备、configuring streams、preparing and tradking requests 等等。具体的拍照、设置流程则是由其子类 `V4L2Camera` 实现。
+
+`Camera` 类在调用具体流程的时候，会应用上 `V4L2Camera` 初始化之后的 `Metadata` 属性，比如 **in-flight** request per stream 数量的限制。换句话说，`Camera` 类实现具体的 HAL 调用流程，与而具体的设备无关，而 `V4L2Camera` 负责设备相关的属性设置、功能实现（透过 `V4L2Wrapper` 类）。所以理论上，可以把 V4L2 实现换成其它某种设备实现，只要传递正确的 metadata 信息，`Camera` 类依然会按照预期的工作。
+
+### V4L2 具体实现
+
+`V4L2Camera` 实现所有拍照功能。它包含一些方法用来获取或设置参数，但它的核心能力主要是在 `request queue` 上。 `Camera` 提交 `CaptureRequest` 到 `request queue` 排队，`V4L2Camera` 异步地从队列里取出来执行，处理过程主要分三个阶段：
+- 接收 request 请求：收到 request 并放入等待队列。
+- enqueue：读取 request 配置并应用到 v4l2 设备，执行拍照，并传递 buffer 给 v4l2 驱动。
+- dequeue：从驱动获取到处理完成的 frame，buffer 内容 copy 到 request output 并传递给 `Camera` 做后续处理（验证结果，填入 `CaptureResult` 并返回给 Framework）
+
+这项工作的大部分是 `V4L2Wrapper` 类完成的，它基于 HAL 的功能需求，包装了 v4l2 ioctls, 提供简单的输入输出调用功能。自动填入 ioctls 需要的常量参数，抽取 HAL 所需信息，同时把相关功能暴露给 Metadata 系统，获取、设置 meta 控制参数。
 
 
 ### Metadata
 
+`Metadata` 子系统主要目的是简化 (system/media/camera/docs/docs.html) 的相关操作。顶层是 `Metadata` 和 `PartialMetadataInterface` 类，`Metadata` 类提供高层次功能，包括初始化 `static metadata`，验证，获取、设定相关配置参数等等，它把这些需求下发给对应的 `PartialMetadataInterfaces` 模块，各个子模块负责处理自己相关的 metadata 和任务。
+
+已经实现了几个具体类负责这项功能，主要有 3 类：
+- Properties：静态属性, static metadata 等
+- Controls：动态属性，或者标示允许值的静态属性
+- States：动态的只读的属性
+
+针对不同的功能需求和不同的 `metadata tags`, 还有一些更具体的接口和子类型来区分处理。
+
+#### Metadata Factory
+
+为了满足 HAL 规范的要求, V4L2 Camera HAL 使用一个 metadata factory 工厂方法，初始化 100+ metadata 参数，大多数参数都是固定值，只有少部分对应到 v4l2 驱动相关的参数。
+
+这套 HAL 实现最初是为了提供给 **Raspberry Pi** camera module v2.1 使用的，所以大多固定默认值的设置主要是适配它的相机模组。
 
 
 ## V4L2 不足之处

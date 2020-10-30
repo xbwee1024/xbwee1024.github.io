@@ -14,7 +14,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://www.xbwee.space
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -104,10 +104,11 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: git
-  repository: https://github.com/xbwee1024/xbwee1024.github.io.git
-  branch: master
-  message: add/modify/delete posts
+  - type: git
+    repository: https://github.com/xbwee1024/xbwee1024.github.io.git
+    branch: master
+    message: add/modify/delete posts
+  - type: leancloud_counter_security_sync
 
 # hexo-symbols-count-time
 symbols_count_time:
@@ -145,3 +146,11 @@ filter_optimize:
   # set the priority of this plugin,
   # lower means it will be executed first, default of Hexo is 10
   priority: 12
+
+leancloud_counter_security:
+  enable_sync: true
+  app_id: 4GgdYKJV5fgexya6xmgU7OyD-gzGzoHsz
+  app_key: 4UK5s8XhJdCYQ9gy48gp9CJf
+  server_url: https://4ggdykjv.lc-cn-n1-shared.com
+  username: xbwee
+  password: "123456"

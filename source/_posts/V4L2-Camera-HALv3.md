@@ -5,10 +5,11 @@ cover: false
 toc: true
 mathjax: true
 date: 2020-10-25 14:13:21
-tags: usbcamera
+tags: 原创
 categories:
     - android
     - camera hal
+    - usbcamera
 summary: 
 ---
 

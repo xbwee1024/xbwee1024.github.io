@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"www.xbwee.space","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="技术博客，杂记，随笔">
+  <meta name="description" content="Android 设备基于 linux kernel, 自带 V4L2 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。 这里简单介绍几种针对开发者来说，可选择的实现方案.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android USB Camera Implementations">
+<meta property="og:title" content="Android USB Camera 的支持与实现">
 <meta property="og:url" content="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/index.html">
 <meta property="og:site_name" content="xbwee&#39;s blogs">
-<meta property="og:description" content="技术博客，杂记，随笔">
+<meta property="og:description" content="Android 设备基于 linux kernel, 自带 V4L2 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。 这里简单介绍几种针对开发者来说，可选择的实现方案.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-02T06:36:18.000Z">
-<meta property="article:modified_time" content="2020-11-05T09:51:24.580Z">
+<meta property="article:modified_time" content="2020-11-11T12:55:09.575Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Android USB Camera Implementations | xbwee's blogs</title>
+  <title>Android USB Camera 的支持与实现 | xbwee's blogs</title>
   
 
 
@@ -185,7 +185,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android USB Camera Implementations
+          Android USB Camera 的支持与实现
         </h1>
 
         <div class="post-meta">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-05 17:51:24" itemprop="dateModified" datetime="2020-11-05T17:51:24+08:00">2020-11-05</time>
+                <time title="修改时间：2020-11-11 20:55:09" itemprop="dateModified" datetime="2020-11-11T20:55:09+08:00">2020-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +223,7 @@
             </span>
 
           
-            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera Implementations" title="阅读次数">
+            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera 的支持与实现" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -249,14 +249,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -268,7 +268,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>Android 设备基于 <code>linux kernel</code>, 自带 <code>V4L2</code> 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。</p>
+<p>这里简单介绍几种针对开发者来说，可选择的实现方案.</p>
+<a id="more"></a>
+
+
+<h1 id="基于-libuvc-开发"><a href="#基于-libuvc-开发" class="headerlink" title="基于 libuvc 开发"></a>基于 libuvc 开发</h1><p><a target="_blank" rel="noopener" href="https://github.com/libuvc/libuvc">libuvc</a> 是一个跨平台开发库，基于 <code>libusb</code>，功能包括 UVC 设备识别与控制，视频流传输，视频流格式转换等。</p>
+<p>Android 平台上已有一个 Usb Camera 的开源项目，基于 <code>libucv</code> 的Android 应用，<a target="_blank" rel="noopener" href="https://github.com/saki4510t/UVCCamera">UVCCamera</a> 无需 <code>root</code> 权限即可预览显示连接到手机的 usb camera 设备。</p>
+<p><code>libuvc</code> 官网介绍：</p>
+<blockquote>
+<p>libuvc is a cross-platform library for USB video devices, built atop libusb. It enables fine-grained control over USB video devices exporting the standard USB Video Class (UVC) interface, enabling developers to write drivers for previously unsupported devices, or just access UVC devices in a generic fashion.</p>
+</blockquote>
+<blockquote>
+<p>libuvc is a library that supports enumeration, control and streaming for USB Video Class (UVC) devices, such as consumer webcams.<br>Features</p>
+</blockquote>
+<ul>
+<li>UVC device discovery and management API</li>
+<li>Video streaming (device to host) with asynchronous/callback and synchronous/polling modes</li>
+<li>Read/write access to standard device settings</li>
+<li>Conversion between various formats: RGB, YUV, JPEG, etc.</li>
+<li>Tested on Mac and Linux, portable to Windows and some BSDs</li>
+</ul>
+<p>代码支持 CMake，android 平台编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/libuvc/libuvc</span><br><span class="line"><span class="built_in">cd</span> libuvc</span><br><span class="line">mkdir build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake \</span><br><span class="line">    -D CMAKE_INSTALL_PREFIX=your_install_path \</span><br><span class="line">    -D CMAKE_TOOLCHAIN_FILE=<span class="variable">$&#123;ANDROID_NDK&#125;</span>/build/cmake/android.toolchain.cmake \</span><br><span class="line">    -D CMAKE_BUILD_TYPE=Debug \</span><br><span class="line">    -D ANDROID_NDK=<span class="variable">$&#123;ANDROIDz_NDK&#125;</span> \</span><br><span class="line">    -D ANDROID_PLATFORM=android-28 \</span><br><span class="line">    -D ANDROID_STL=c++_static \</span><br><span class="line">    -D ANDROID_PIE=ON \</span><br><span class="line">    ..</span><br><span class="line">cmake --build . --config Debug --target install -- -j6</span><br></pre></td></tr></table></figure>
+
+<p>UVCCamera</p>
+<blockquote>
+<p>library and sample to access to UVC web camera on non-rooted Android device<br>Copyright (c) 2014-2017 saki <a href="mailto:&#116;&#95;&#x73;&#x61;&#107;&#105;&#x40;&#x73;&#x65;&#114;&#x65;&#110;&#x65;&#103;&#x69;&#x61;&#110;&#x74;&#x2e;&#x63;&#111;&#109;">&#116;&#95;&#x73;&#x61;&#107;&#105;&#x40;&#x73;&#x65;&#114;&#x65;&#110;&#x65;&#103;&#x69;&#x61;&#110;&#x74;&#x2e;&#x63;&#111;&#109;</a></p>
+</blockquote>
+<p>参考资料：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/saki4510t/UVCCamera">https://github.com/saki4510t/UVCCamera</a><br><a target="_blank" rel="noopener" href="https://github.com/libuvc/libuvc">https://github.com/libuvc/libuvc</a><br><a target="_blank" rel="noopener" href="https://github.com/libusb/libusb">https://github.com/libusb/libusb</a><br><a target="_blank" rel="noopener" href="https://ken.tossell.net/libuvc/doc/">https://ken.tossell.net/libuvc/doc/</a><br><a target="_blank" rel="noopener" href="https://libusb.info/">https://libusb.info/</a></p>
+</blockquote>
+<h1 id="Android-官方推出的-ExternalCamera"><a href="#Android-官方推出的-ExternalCamera" class="headerlink" title="Android 官方推出的 ExternalCamera"></a>Android 官方推出的 ExternalCamera</h1><p>随着 Android P 版本升级，新增了 <code>External USB Cameras</code> 这个功能，默认情况该功能是关闭的，一些 HAL 组件不会编译到 ROM 中，需要打开更新 ROM 才行。另外该功能还依赖于 <code>android.hardware.usb.host</code> 以及 Linux kernel 打开 UVC 驱动支持。</p>
+<p>该实现会启动一个 hotplug 线程，监视 /dev/video* 设备增删情况，同步更新 camera 设备列表。</p>
+<p>参考资料:</p>
+<blockquote>
+<p>【external camera】<br><a target="_blank" rel="noopener" href="https://source.android.com/devices/camera/external-usb-cameras">https://source.android.com/devices/camera/external-usb-cameras</a><br>【V4L2 Camera HAL questions】<br><a target="_blank" rel="noopener" href="https://groups.google.com/g/android-platform/c/Qx1P0I17uzs?pli=1">https://groups.google.com/g/android-platform/c/Qx1P0I17uzs?pli=1</a></p>
+</blockquote>
+<h1 id="camera-v4l2-实现"><a href="#camera-v4l2-实现" class="headerlink" title="camera.v4l2 实现"></a>camera.v4l2 实现</h1><p>该库也是基于 <code>V4L2</code> 的 <code>Camera HALv3</code> 实现，原本是 Google 开发出来给树莓派系统使用的。所以从 Android AOSP 代码库里面可以找到这份源代码，但是只有 HAL 实现，没有接入 Android Framework，也就是 cameraserver 是调用不到的。如果有树莓派源代码的话倒是可以参考看看，不过估计也是基于这个初阶版本改过甚至是采用了全新的实现。</p>
+<p>该库在 Android 系统里也是默认关闭的，需要打开才会编到 ROM 里，代码实现上解耦了 camera interface 与 V2L2 wrapper 部分，所以理论上可以把 V4L2 实现替换成其它也是 ok 的。</p>
+<p>详细介绍可以参考这篇文章：</p>
+<a href="/2020/10/25/V4L2-Camera-HALv3/" title="V4L2 Camera HALv3 介绍">V4L2 Camera HALv3 介绍</a>
     </div>
 
     
@@ -283,7 +324,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/" title="Android USB Camera Implementations">https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</a>
+    <a href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/" title="Android USB Camera 的支持与实现">https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -303,8 +344,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/25/V4L2-Camera-HALv3/" rel="prev" title="V4L2 Camera HALv3">
-      <i class="fa fa-chevron-left"></i> V4L2 Camera HALv3
+    <a href="/2020/10/25/V4L2-Camera-HALv3/" rel="prev" title="V4L2 Camera HALv3 介绍">
+      <i class="fa fa-chevron-left"></i> V4L2 Camera HALv3 介绍
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -366,6 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-libuvc-%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">基于 libuvc 开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-%E5%AE%98%E6%96%B9%E6%8E%A8%E5%87%BA%E7%9A%84-ExternalCamera"><span class="nav-number">2.</span> <span class="nav-text">Android 官方推出的 ExternalCamera</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#camera-v4l2-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">camera.v4l2 实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -441,12 +483,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

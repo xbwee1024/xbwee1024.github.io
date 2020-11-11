@@ -182,7 +182,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/02/Android-USB-Camera-Implementations/" class="post-title-link" itemprop="url">Android USB Camera Implementations</a>
+            <a href="/2020/11/02/Android-USB-Camera-Implementations/" class="post-title-link" itemprop="url">Android USB Camera 的支持与实现</a>
         </h2>
 
         <div class="post-meta">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-05 17:51:24" itemprop="dateModified" datetime="2020-11-05T17:51:24+08:00">2020-11-05</time>
+                <time title="修改时间：2020-11-11 20:55:09" itemprop="dateModified" datetime="2020-11-11T20:55:09+08:00">2020-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,7 +220,7 @@
             </span>
 
           
-            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera Implementations" title="阅读次数">
+            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera 的支持与实现" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -246,14 +246,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -265,7 +265,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p>Android 设备基于 <code>linux kernel</code>, 自带 <code>V4L2</code> 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。</p>
+<p>这里简单介绍几种针对开发者来说，可选择的实现方案.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/02/Android-USB-Camera-Implementations/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -298,7 +307,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/25/V4L2-Camera-HALv3/" class="post-title-link" itemprop="url">V4L2 Camera HALv3</a>
+            <a href="/2020/10/25/V4L2-Camera-HALv3/" class="post-title-link" itemprop="url">V4L2 Camera HALv3 介绍</a>
         </h2>
 
         <div class="post-meta">
@@ -315,7 +324,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-02 10:21:49" itemprop="dateModified" datetime="2020-11-02T10:21:49+08:00">2020-11-02</time>
+                <time title="修改时间：2020-11-11 20:42:30" itemprop="dateModified" datetime="2020-11-11T20:42:30+08:00">2020-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -336,7 +345,7 @@
             </span>
 
           
-            <span id="/2020/10/25/V4L2-Camera-HALv3/" class="post-meta-item leancloud_visitors" data-flag-title="V4L2 Camera HALv3" title="阅读次数">
+            <span id="/2020/10/25/V4L2-Camera-HALv3/" class="post-meta-item leancloud_visitors" data-flag-title="V4L2 Camera HALv3 介绍" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -439,7 +448,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-02 10:22:15" itemprop="dateModified" datetime="2020-11-02T10:22:15+08:00">2020-11-02</time>
+                <time title="修改时间：2020-11-11 20:44:08" itemprop="dateModified" datetime="2020-11-11T20:44:08+08:00">2020-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -501,7 +510,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 <a href="https://www.xbwee.space/2020/10/22/Android-HAL-Intro/#more">Android HAL 介绍</a> 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。</p>
+          <p>Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 <a href="/2020/10/22/Android-HAL-Intro/" title="Android HAL 介绍">Android HAL 介绍</a> 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。</p>
 <p>不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 <code>android.hardware.Camera</code> API, 已经不再被支持。推荐实现 v3.2 及以上。</p>
 <p>模块名称定义如下，加载模块时根据模块名称搜索对应的动态库 <code>camera.variant.so</code>。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_HARDWARE_MODULE_ID <span class="meta-string">&quot;camera&quot;</span></span></span><br></pre></td></tr></table></figure>
@@ -777,12 +786,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

@@ -1,5 +1,5 @@
 ---
-title: V4L2 Camera HALv3
+title: V4L2 Camera HALv3 介绍
 top: false
 cover: false
 toc: true
@@ -40,7 +40,7 @@ PRODUCT_PROPERTY_OVERRIDES += ro.hardware.camera=v4l2
 
 **V4L2 Camera HAL** 包含 3 个部分：HALv3 Camera 实现， V4L2 wrapper，以及 Metadata
 
-同时，你应该要了解一下 **Android Framework** 是如何与 **HAL** 打交道的，可以参考 [Android Camera HAL 介绍](https://www.xbwee.space/2020/10/23/Android-Camera-HAL-Intro/)
+同时，你应该要了解一下 **Android Framework** 是如何与 **HAL** 打交道的，可以参考 {% post_link Android-Camera-HAL-Intro Android Camera HAL 介绍 %}
 
 ### Camera & HAL 接口
 

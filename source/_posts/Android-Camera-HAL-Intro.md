@@ -12,7 +12,7 @@ categories:
 summary: android camera hal 介绍
 ---
 
-Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 [Android HAL 介绍](https://www.xbwee.space/2020/10/22/Android-HAL-Intro/#more) 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。
+Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 {% post_link Android-HAL-Intro Android HAL 介绍 %} 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。
 
 不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 `android.hardware.Camera` API, 已经不再被支持。推荐实现 v3.2 及以上。
 

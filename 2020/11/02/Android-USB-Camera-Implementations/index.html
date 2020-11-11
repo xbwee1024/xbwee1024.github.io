@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"www.xbwee.space","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="AV.initialize(&quot;4GgdYKJV5fgexya6xmgU7OyD-gzGzoHsz&quot;, &quot;4UK5s8XhJdCYQ9gy48gp9CJf&quot;);    var time&#x3D;0   var title&#x3D;&quot;&quot;   var url&#x3D;&quot;&quot;   var query &#x3D; new AV.Query(&#39;Counter&#39;);   query.notEqualTo(&#39;id&#39;,0);   query.d">
-<meta property="og:type" content="website">
-<meta property="og:title" content="热度排行">
-<meta property="og:url" content="https://www.xbwee.space/hot/index.html">
+  <meta name="description" content="技术博客，杂记，随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android USB Camera Implementations">
+<meta property="og:url" content="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/index.html">
 <meta property="og:site_name" content="xbwee&#39;s blogs">
-<meta property="og:description" content="AV.initialize(&quot;4GgdYKJV5fgexya6xmgU7OyD-gzGzoHsz&quot;, &quot;4UK5s8XhJdCYQ9gy48gp9CJf&quot;);    var time&#x3D;0   var title&#x3D;&quot;&quot;   var url&#x3D;&quot;&quot;   var query &#x3D; new AV.Query(&#39;Counter&#39;);   query.notEqualTo(&#39;id&#39;,0);   query.d">
+<meta property="og:description" content="技术博客，杂记，随笔">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-30T06:21:52.000Z">
-<meta property="article:modified_time" content="2020-10-30T09:09:20.916Z">
+<meta property="article:published_time" content="2020-11-02T06:36:18.000Z">
+<meta property="article:modified_time" content="2020-11-05T09:51:24.580Z">
 <meta property="article:author" content="xbwee">
+<meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.xbwee.space/hot/">
+<link rel="canonical" href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/">
 
 
 <script id="page-configurations">
@@ -40,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>热度排行 | xbwee's blogs
-</title>
+  <title>Android USB Camera Implementations | xbwee's blogs</title>
   
 
 
@@ -164,70 +164,162 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">热度排行
-</h1>
-
-<div class="post-meta">
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xbwee">
+      <meta itemprop="description" content="技术博客，杂记，随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xbwee's blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android USB Camera Implementations
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-02 14:36:18" itemprop="dateCreated datePublished" datetime="2020-11-02T14:36:18+08:00">2020-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-05 17:51:24" itemprop="dateModified" datetime="2020-11-05T17:51:24+08:00">2020-11-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index"><span itemprop="name">android</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/camera-hal/" itemprop="url" rel="index"><span itemprop="name">camera hal</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/camera-hal/usbcamera/" itemprop="url" rel="index"><span itemprop="name">usbcamera</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera Implementations" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/02/Android-USB-Camera-Implementations/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/02/Android-USB-Camera-Implementations/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xbwee
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/" title="Android USB Camera Implementations">https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 </div>
 
-</header>
 
-      
-      
-      
-      <div class="post-body">
-          <div id="hot"></div>
-<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-<script>AV.initialize("4GgdYKJV5fgexya6xmgU7OyD-gzGzoHsz", "4UK5s8XhJdCYQ9gy48gp9CJf");</script>
-<script type="text/javascript">
-  var time=0
-  var title=""
-  var url=""
-  var query = new AV.Query('Counter');
-  query.notEqualTo('id',0);
-  query.descending('time');
-  query.limit(1000);
-  query.find().then(function (todo) {
-    for (var i=0;i<1000;i++){
-      var result=todo[i].attributes;
-      time=result.time;
-      title=result.title;
-      url=result.url;
-      var content="<p>"+"<font color='#1C1C1C'>"+"【文章热度:"+time+"℃】"+"</font>"+"<a href='"+"https://xbwee1024.github.io/"+url+"'>"+title+"</a>"+"</p>";
-      document.getElementById("hot").innerHTML+=content
-    }
-  }, function (error) {
-    console.log("error");
-  });
-</script>
-      </div>
-      
-      
-      
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8E%9F%E5%88%9B/" rel="tag"># 原创</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/25/V4L2-Camera-HALv3/" rel="prev" title="V4L2 Camera HALv3">
+      <i class="fa fa-chevron-left"></i> V4L2 Camera HALv3
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
+      </footer>
     
+  </article>
+  
+  
+  
 
-    
-    
-    
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {

@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.xbwee.space/images/Screenshot_2020-11-17-19-19-31-610_Camera2Basic.jpg">
 <meta property="article:published_time" content="2020-11-12T09:42:17.000Z">
-<meta property="article:modified_time" content="2020-11-17T11:46:13.350Z">
+<meta property="article:modified_time" content="2020-11-18T02:54:36.298Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-17 19:46:13" itemprop="dateModified" datetime="2020-11-17T19:46:13+08:00">2020-11-17</time>
+                <time title="修改时间：2020-11-18 10:54:36" itemprop="dateModified" datetime="2020-11-18T10:54:36+08:00">2020-11-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,7 +251,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.2k</span>
+              <span>5.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,12 +323,22 @@
 
 <h1 id="framework-修复"><a href="#framework-修复" class="headerlink" title="framework 修复"></a>framework 修复</h1><p>上述动态库和配置文件都 ready 之后，极大可能还会遇到 binder crash，或者 JE 等各种崩溃，这是因为 OEM 厂商动了 AOSP 代码。不同的 OEM 修改不一样，不再一一列出来。</p>
 <p>基本上都是改几行代码就能解决，主要是 <code>CameraManager.java</code> 这个文件! 看 log，看 log，看 log…. 重要的事情说三遍！</p>
-<h1 id="使用外接-usb-camera"><a href="#使用外接-usb-camera" class="headerlink" title="使用外接 usb camera"></a>使用外接 usb camera</h1><p>编译安装 Camera2Basic 这个android demo app，手机连接 usb camera，打开app 界面，会看到有 <strong>“External JPEG(/dev/videox)”</strong> 这个设备:</p>
-<img src="/images/Screenshot_2020-11-17-19-19-31-610_Camera2Basic.jpg" width="25%" height="25%" alt="Caemera2Basic Demo">
+<h1 id="使用外接-usb-camera"><a href="#使用外接-usb-camera" class="headerlink" title="使用外接 usb camera"></a>使用外接 usb camera</h1><h2 id="Camera2Basic-预览"><a href="#Camera2Basic-预览" class="headerlink" title="Camera2Basic 预览"></a>Camera2Basic 预览</h2><p>编译安装 Camera2Basic 这个android demo app，手机连接 usb camera，打开app 界面，会看到有 <strong>“External JPEG(/dev/videox)”</strong> 这个设备:</p>
+<img src="/images/Screenshot_2020-11-17-19-19-31-610_Camera2Basic.jpg" width="25%" height="25%" alt="Camera2Basic Demo">
 
 <blockquote>
 <p><strong>备注</strong><br><code>Camera2Basic</code> 获取方式：<br>Android Studio -&gt; Import an Android code sample -&gt; Camera2Basic -&gt; 编译安装</p>
 </blockquote>
+<h2 id="微信视频通话"><a href="#微信视频通话" class="headerlink" title="微信视频通话"></a>微信视频通话</h2><p>微信默认使用前置摄像头（cameraId=1），只需要让 external usb camera 返回给 CameraProviderManager 看到的 <code>cameraId</code> 是 “1” 即可，验证可行，微信通话能正常走 usb camera 视频流，音频调用的是手机话筒。</p>
+<blockquote>
+<p>提示：  </p>
+</blockquote>
+<ul>
+<li>external provider 调用 <code>cameraDeviceStatusChanged</code> 时返回 <code>cameraId=&quot;1&quot;</code>，确保 CameraProviderManager -&gt; cameraservice -&gt; App 看到的设备id 是 “1” ，替换掉前置。</li>
+<li>external device 强制写死，比如 <code>mCameraId(&quot;/dev/video2&quot;)</code>, 确保 open/close 时能正确打开 V4L2 设备节点</li>
+<li>CameraProviderManager 需要修改，开机时已经检测并添加了 id=1 的前置摄像头设备，因此它不会允许再添加 external usb 设备，这个逻辑需要修改一下。</li>
+</ul>
+<p>Enjoy yourself！！！</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <p><code>Device Manifest</code><br><a target="_blank" rel="noopener" href="https://source.android.com/devices/architecture/vintf/objects">https://source.android.com/devices/architecture/vintf/objects</a><br><code>External USB Cameras</code><br><a target="_blank" rel="noopener" href="https://source.android.com/devices/camera/external-usb-cameras">https://source.android.com/devices/camera/external-usb-cameras</a><br><code>USB Host</code><br><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/connectivity/usb/host">https://developer.android.com/guide/topics/connectivity/usb/host</a></p>
 </blockquote>
@@ -430,7 +440,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">修改配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">kernel 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#android-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">android 配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#framework-%E4%BF%AE%E5%A4%8D"><span class="nav-number">2.</span> <span class="nav-text">framework 修复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%96%E6%8E%A5-usb-camera"><span class="nav-number">3.</span> <span class="nav-text">使用外接 usb camera</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">修改配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">kernel 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#android-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">android 配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#framework-%E4%BF%AE%E5%A4%8D"><span class="nav-number">2.</span> <span class="nav-text">framework 修复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%96%E6%8E%A5-usb-camera"><span class="nav-number">3.</span> <span class="nav-text">使用外接 usb camera</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Camera2Basic-%E9%A2%84%E8%A7%88"><span class="nav-number">3.1.</span> <span class="nav-text">Camera2Basic 预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%91%E9%80%9A%E8%AF%9D"><span class="nav-number">3.2.</span> <span class="nav-text">微信视频通话</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

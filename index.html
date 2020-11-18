@@ -118,7 +118,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">5</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -164,6 +164,160 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xbwee.space/2020/11/18/Android-Camera-HAL-Treble/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s.gravatar.com/avatar/72c684138f4483ba31279fe9c5be952c?s=80">
+      <meta itemprop="name" content="xbwee">
+      <meta itemprop="description" content="技术博客，杂记，随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xbwee's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/18/Android-Camera-HAL-Treble/" class="post-title-link" itemprop="url">Android Camera HAL 新架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-18 17:40:24 / 修改时间：18:17:26" itemprop="dateCreated datePublished" datetime="2020-11-18T17:40:24+08:00">2020-11-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index"><span itemprop="name">android</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/camera-hal/" itemprop="url" rel="index"><span itemprop="name">camera hal</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/18/Android-Camera-HAL-Treble/" class="post-meta-item leancloud_visitors" data-flag-title="Android Camera HAL 新架构" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/18/Android-Camera-HAL-Treble/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/18/Android-Camera-HAL-Treble/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们也把 Camera 拆分成 <strong>三驾马车</strong> 来看：<code>App Framework</code>, <code>CameraService</code>, <code>Camera HAL</code></p>
+<p><code>App Framework</code> 部分是最上层部分，包括 Java &amp; C++ 代码，实现了 <code>Android Camera2 API</code> 接口，提供给 android 应用使用，Java 部分包含在 Android SDK 里面。</p>
+<blockquote>
+<p>source tree  </p>
+</blockquote>
+<ul>
+<li>Java 实现：  <ul>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/">https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/</a></li>
+</ul>
+</li>
+<li>C++ 实现：  <ul>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/jni/">https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/jni/</a>  </li>
+</ul>
+</li>
+</ul>
+<p><code>CameraService</code> 是中间桥梁，负责沟通 Framework 与 Camera 硬件设备，把上层的调用需求透过 camera hal 接口转发给 HAL 硬件实现，同时返回处理结果。</p>
+<blockquote>
+<p>source tree  </p>
+</blockquote>
+<ul>
+<li>C++ 实现：  <ul>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/camera/">https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/camera/</a>  </li>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/services/camera/libcameraservice/">https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/services/camera/libcameraservice/</a></li>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/hardware/interfaces/+/refs/heads/master/cameraservice/">https://android.googlesource.com/platform/frameworks/hardware/interfaces/+/refs/heads/master/cameraservice/</a></li>
+</ul>
+</li>
+</ul>
+<p><code>Camera HAL</code> 是硬件适配层，针对不同 camera 硬件模组，由 OEM 厂商提供具体实现</p>
+<blockquote>
+<p>source tree</p>
+</blockquote>
+<ul>
+<li>Treble 架构  <ul>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/camera/">https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/camera/</a></li>
+</ul>
+</li>
+<li>Legacy  <ul>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/hardware/libhardware/+/refs/heads/master/modules/camera/">https://android.googlesource.com/platform/hardware/libhardware/+/refs/heads/master/modules/camera/</a></li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/18/Android-Camera-HAL-Treble/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -572,7 +726,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-11 20:44:08" itemprop="dateModified" datetime="2020-11-11T20:44:08+08:00">2020-11-11</time>
+                <time title="修改时间：2020-11-18 17:43:57" itemprop="dateModified" datetime="2020-11-18T17:43:57+08:00">2020-11-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -615,14 +769,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>18k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>16 分钟</span>
+              <span>17 分钟</span>
             </span>
 
         </div>
@@ -634,10 +788,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 <a href="/2020/10/22/Android-HAL-Intro/" title="Android HAL 介绍">Android HAL 介绍</a> 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。</p>
-<p>不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 <code>android.hardware.Camera</code> API, 已经不再被支持。推荐实现 v3.2 及以上。</p>
-<p>模块名称定义如下，加载模块时根据模块名称搜索对应的动态库 <code>camera.variant.so</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CAMERA_HARDWARE_MODULE_ID <span class="meta-string">&quot;camera&quot;</span></span></span><br></pre></td></tr></table></figure>
+          <p>Android Camera HAL 作为 Framework 层 Camera2 API 接口与底层硬件实现的桥梁，起着承上启下的作用。另外从 <code>Android 8.0</code> 开始使用了新的 <code>Treble</code> 架构（HAL 接口与实现代码在 <code>hardware/interfaces/camera/</code>），舍弃了原本旧的架构实现（Legacy HAL: <code>hardware/libhardware/modules/camera/</code>）。</p>
+<p>Legacy HAL 当前还保留的内容：</p>
+<ul>
+<li><code>hardware/libhardware/include/hardware/camera*.h</code>, Camera Hal 接口定义，持续更新</li>
+<li><code>hardware/libhardware/modules/camera/3_0/</code>, <code>camera.default</code> Legacy 默认实现</li>
+<li><code>hardware/libhardware/modules/camera/3_4/</code>, <code>camera.v4l2</code> 非官方实现（树莓派）0</li>
+</ul>
+<p>截止目前最新版本是 HALv3，高端机型基本上都支持。Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化 v1, v2 对应 <code>android.hardware.Camera</code> API, 已经不再被支持。</p>
+<p>熟悉了 <a href="/2020/10/22/Android-HAL-Intro/" title="Android HAL 介绍">Android HAL 介绍</a> ，再来看 Camera HAL 会更容易理解。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/23/Android-Camera-HAL-Intro/#more" rel="contents">
@@ -850,7 +1009,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -910,12 +1069,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">34k</span>
+    <span title="站点总字数">35k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">30 分钟</span>
+    <span title="站点阅读时长">32 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

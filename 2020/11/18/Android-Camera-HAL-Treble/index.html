@@ -80,6 +80,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="xbwee's blogs" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -339,7 +340,7 @@
 <li>向 hwservicemanager 注册该服务：<ul>
 <li>首先在 <code>hwservicemanager</code> 中插入一个 <code>HidlService</code> (interfaceName, instanceName)</li>
 <li>其次生成的 <code>CameraProvider</code> 对象也要透过 IPC 调用 <code>hidl::manager::add</code> 把自己添加到 <code>hwservicemanager</code>，因为上一步已经插入了一个对应的 <code>HidlService</code> 所以仅仅是更新 <code>pid</code>和 <code>service</code> 指向实例对象</li>
-<li>(interfaceName， instanceName) -&gt; (“<a href="mailto:&#x61;&#x6e;&#x64;&#114;&#111;&#x69;&#x64;&#x2e;&#x68;&#x61;&#114;&#x64;&#119;&#x61;&#114;&#x65;&#x2e;&#99;&#x61;&#x6d;&#101;&#114;&#97;&#46;&#112;&#x72;&#111;&#x76;&#105;&#100;&#101;&#114;&#64;&#50;&#x2e;&#x34;">&#x61;&#x6e;&#x64;&#114;&#111;&#x69;&#x64;&#x2e;&#x68;&#x61;&#114;&#x64;&#119;&#x61;&#114;&#x65;&#x2e;&#99;&#x61;&#x6d;&#101;&#114;&#97;&#46;&#112;&#x72;&#111;&#x76;&#105;&#100;&#101;&#114;&#64;&#50;&#x2e;&#x34;</a>::ICameraProvider”, “/legacy/0”)，</li>
+<li>(interfaceName， instanceName) -&gt; (“<a href="mailto:&#x61;&#x6e;&#100;&#x72;&#111;&#105;&#x64;&#46;&#104;&#x61;&#x72;&#x64;&#119;&#x61;&#114;&#x65;&#x2e;&#x63;&#x61;&#x6d;&#x65;&#114;&#x61;&#x2e;&#112;&#x72;&#111;&#x76;&#x69;&#100;&#x65;&#114;&#64;&#x32;&#x2e;&#x34;">&#x61;&#x6e;&#100;&#x72;&#111;&#105;&#x64;&#46;&#104;&#x61;&#x72;&#x64;&#119;&#x61;&#114;&#x65;&#x2e;&#x63;&#x61;&#x6d;&#x65;&#114;&#x61;&#x2e;&#112;&#x72;&#111;&#x76;&#x69;&#100;&#x65;&#114;&#64;&#x32;&#x2e;&#x34;</a>::ICameraProvider”, “/legacy/0”)，</li>
 </ul>
 </li>
 </ol>
@@ -545,7 +546,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长">38 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

@@ -334,7 +334,7 @@
 <li>向 hwservicemanager 注册该服务：<ul>
 <li>首先在 <code>hwservicemanager</code> 中插入一个 <code>HidlService</code> (interfaceName, instanceName)</li>
 <li>其次生成的 <code>CameraProvider</code> 对象也要透过 IPC 调用 <code>hidl::manager::add</code> 把自己添加到 <code>hwservicemanager</code>，因为上一步已经插入了一个对应的 <code>HidlService</code> 所以仅仅是更新 <code>pid</code>和 <code>service</code> 指向实例对象</li>
-<li>(interfaceName， instanceName) -&gt; (“<a href="mailto:&#x61;&#x6e;&#x64;&#114;&#x6f;&#105;&#x64;&#x2e;&#104;&#97;&#x72;&#x64;&#119;&#97;&#114;&#101;&#x2e;&#99;&#97;&#109;&#x65;&#x72;&#97;&#x2e;&#112;&#x72;&#111;&#118;&#x69;&#x64;&#x65;&#x72;&#64;&#50;&#x2e;&#52;">&#x61;&#x6e;&#x64;&#114;&#x6f;&#105;&#x64;&#x2e;&#104;&#97;&#x72;&#x64;&#119;&#97;&#114;&#101;&#x2e;&#99;&#97;&#109;&#x65;&#x72;&#97;&#x2e;&#112;&#x72;&#111;&#118;&#x69;&#x64;&#x65;&#x72;&#64;&#50;&#x2e;&#52;</a>::ICameraProvider”, “/legacy/0”)，</li>
+<li>(interfaceName， instanceName) -&gt; (“<a href="mailto:&#x61;&#x6e;&#100;&#x72;&#x6f;&#105;&#100;&#46;&#x68;&#x61;&#x72;&#100;&#x77;&#97;&#114;&#x65;&#46;&#x63;&#97;&#x6d;&#x65;&#x72;&#x61;&#x2e;&#112;&#114;&#x6f;&#x76;&#x69;&#100;&#x65;&#114;&#x40;&#50;&#x2e;&#52;">&#x61;&#x6e;&#100;&#x72;&#x6f;&#105;&#100;&#46;&#x68;&#x61;&#x72;&#100;&#x77;&#97;&#114;&#x65;&#46;&#x63;&#97;&#x6d;&#x65;&#x72;&#x61;&#x2e;&#112;&#114;&#x6f;&#x76;&#x69;&#100;&#x65;&#114;&#x40;&#50;&#x2e;&#52;</a>::ICameraProvider”, “/legacy/0”)，</li>
 </ul>
 </li>
 </ol>

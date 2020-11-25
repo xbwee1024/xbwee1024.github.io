@@ -191,10 +191,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-18 17:40:24 / 修改时间：18:17:26" itemprop="dateCreated datePublished" datetime="2020-11-18T17:40:24+08:00">2020-11-18</time>
+              <time title="创建时间：2020-11-18 17:40:24" itemprop="dateCreated datePublished" datetime="2020-11-18T17:40:24+08:00">2020-11-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-25 16:45:19" itemprop="dateModified" datetime="2020-11-25T16:45:19+08:00">2020-11-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -236,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -256,46 +262,8 @@
 
       
           <p>我们也把 Camera 拆分成 <strong>三驾马车</strong> 来看：<code>App Framework</code>, <code>CameraService</code>, <code>Camera HAL</code></p>
-<p><code>App Framework</code> 部分是最上层部分，包括 Java &amp; C++ 代码，实现了 <code>Android Camera2 API</code> 接口，提供给 android 应用使用，Java 部分包含在 Android SDK 里面。</p>
-<blockquote>
-<p>source tree  </p>
-</blockquote>
-<ul>
-<li>Java 实现：  <ul>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/">https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/</a></li>
-</ul>
-</li>
-<li>C++ 实现：  <ul>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/jni/">https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/jni/</a>  </li>
-</ul>
-</li>
-</ul>
-<p><code>CameraService</code> 是中间桥梁，负责沟通 Framework 与 Camera 硬件设备，把上层的调用需求透过 camera hal 接口转发给 HAL 硬件实现，同时返回处理结果。</p>
-<blockquote>
-<p>source tree  </p>
-</blockquote>
-<ul>
-<li>C++ 实现：  <ul>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/camera/">https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/camera/</a>  </li>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/services/camera/libcameraservice/">https://android.googlesource.com/platform/frameworks/av/+/refs/heads/master/services/camera/libcameraservice/</a></li>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/hardware/interfaces/+/refs/heads/master/cameraservice/">https://android.googlesource.com/platform/frameworks/hardware/interfaces/+/refs/heads/master/cameraservice/</a></li>
-</ul>
-</li>
-</ul>
-<p><code>Camera HAL</code> 是硬件适配层，针对不同 camera 硬件模组，由 OEM 厂商提供具体实现</p>
-<blockquote>
-<p>source tree</p>
-</blockquote>
-<ul>
-<li>Treble 架构  <ul>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/camera/">https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/camera/</a></li>
-</ul>
-</li>
-<li>Legacy  <ul>
-<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/hardware/libhardware/+/refs/heads/master/modules/camera/">https://android.googlesource.com/platform/hardware/libhardware/+/refs/heads/master/modules/camera/</a></li>
-</ul>
-</li>
-</ul>
+<p>前面两个是 <code>Android AOSP</code> 代码，随着 Android 系统升级会持续更新，包含在 system.img 里面，同时 Java 部分接口也会包含在 <code>Android SDK</code> 一起发布。</p>
+<p>随着 <code>Android 8.0</code> 的 Treble 架构发布，相当于是把三驾马车里面的前两架放到了 <code>system.img</code> 里面，一起随着 Android 系统升级更新，而最后一个则独立拆分出来，不仅仅是放到了新的进程里面，而且在手机系统上要求放到 <code>vendor</code> 分区，这样可以各自独立升级。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/18/Android-Camera-HAL-Treble/#more" rel="contents">
@@ -726,7 +694,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-18 17:43:57" itemprop="dateModified" datetime="2020-11-18T17:43:57+08:00">2020-11-18</time>
+                <time title="修改时间：2020-11-18 18:42:04" itemprop="dateModified" datetime="2020-11-18T18:42:04+08:00">2020-11-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1069,12 +1037,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">41k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">32 分钟</span>
+    <span title="站点阅读时长">37 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

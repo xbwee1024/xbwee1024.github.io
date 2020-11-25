@@ -294,7 +294,7 @@
 
 <p>UVCCamera</p>
 <blockquote>
-<p>library and sample to access to UVC web camera on non-rooted Android device<br>Copyright (c) 2014-2017 saki <a href="mailto:&#116;&#95;&#115;&#97;&#107;&#105;&#64;&#115;&#101;&#x72;&#101;&#x6e;&#101;&#103;&#x69;&#x61;&#110;&#x74;&#x2e;&#99;&#111;&#x6d;">&#116;&#95;&#115;&#97;&#107;&#105;&#64;&#115;&#101;&#x72;&#101;&#x6e;&#101;&#103;&#x69;&#x61;&#110;&#x74;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>library and sample to access to UVC web camera on non-rooted Android device<br>Copyright (c) 2014-2017 saki <a href="mailto:&#x74;&#95;&#115;&#97;&#x6b;&#x69;&#x40;&#x73;&#101;&#114;&#x65;&#x6e;&#x65;&#x67;&#x69;&#97;&#x6e;&#116;&#x2e;&#99;&#111;&#x6d;">&#x74;&#95;&#115;&#97;&#x6b;&#x69;&#x40;&#x73;&#101;&#114;&#x65;&#x6e;&#x65;&#x67;&#x69;&#97;&#x6e;&#116;&#x2e;&#99;&#111;&#x6d;</a></p>
 </blockquote>
 <h1 id="Android-官方推出的-ExternalCamera"><a href="#Android-官方推出的-ExternalCamera" class="headerlink" title="Android 官方推出的 ExternalCamera"></a>Android 官方推出的 ExternalCamera</h1><p>随着 Android P 版本升级，新增了 <code>External USB Cameras</code> 这个功能，默认情况该功能是关闭的，一些 HAL 组件不会编译到 ROM 中，需要打开更新 ROM 才行。另外该功能还依赖于 <code>android.hardware.usb.host</code> 以及 Linux kernel 打开 <code>UVC</code> 驱动支持。</p>
 <p>该实现 HAL 会启动一个 <code>hotplug</code> 线程，监视 <code>/dev/video*</code> 设备节点增删情况，透过 HAL 回调函数通知 <code>CameraProviderManager</code> 更新 camera 设备列表。</p>

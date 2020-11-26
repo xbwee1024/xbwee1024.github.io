@@ -15,10 +15,11 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.xbwee.space","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"www.xbwee.space","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="我们也把 Camera 拆分成 三驾马车 来看：App Framework, CameraService, Camera HAL 前面两个是 Android AOSP 代码，随着 Android 系统升级会持续更新，包含在 system.img 里面，同时 Java 部分接口也会包含在 Android SDK 一起发布。 随着 Android 8.0 的 Treble 架构发布，相当于是把三驾马车">
@@ -142,11 +143,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
         <li class="menu-item menu-item-hot">
@@ -341,7 +337,7 @@
 <li>向 hwservicemanager 注册该服务：<ul>
 <li>首先在 <code>hwservicemanager</code> 中插入一个 <code>HidlService</code> (interfaceName, instanceName)</li>
 <li>其次生成的 <code>CameraProvider</code> 对象也要透过 IPC 调用 <code>hidl::manager::add</code> 把自己添加到 <code>hwservicemanager</code>，因为上一步已经插入了一个对应的 <code>HidlService</code> 所以仅仅是更新 <code>pid</code>和 <code>service</code> 指向实例对象</li>
-<li>(interfaceName， instanceName) -&gt; (“<a href="mailto:&#x61;&#x6e;&#x64;&#114;&#111;&#x69;&#100;&#x2e;&#x68;&#97;&#x72;&#100;&#119;&#x61;&#x72;&#x65;&#x2e;&#x63;&#97;&#109;&#101;&#114;&#x61;&#x2e;&#x70;&#114;&#x6f;&#x76;&#105;&#100;&#x65;&#114;&#x40;&#x32;&#x2e;&#52;">&#x61;&#x6e;&#x64;&#114;&#111;&#x69;&#100;&#x2e;&#x68;&#97;&#x72;&#100;&#119;&#x61;&#x72;&#x65;&#x2e;&#x63;&#97;&#109;&#101;&#114;&#x61;&#x2e;&#x70;&#114;&#x6f;&#x76;&#105;&#100;&#x65;&#114;&#x40;&#x32;&#x2e;&#52;</a>::ICameraProvider”, “/legacy/0”)，</li>
+<li>(interfaceName， instanceName) -&gt; (“<a href="mailto:&#x61;&#110;&#x64;&#114;&#111;&#x69;&#100;&#x2e;&#104;&#97;&#x72;&#x64;&#119;&#97;&#x72;&#101;&#46;&#x63;&#x61;&#109;&#101;&#x72;&#x61;&#x2e;&#112;&#114;&#x6f;&#118;&#105;&#100;&#101;&#114;&#64;&#50;&#x2e;&#52;">&#x61;&#110;&#x64;&#114;&#111;&#x69;&#100;&#x2e;&#104;&#97;&#x72;&#x64;&#119;&#97;&#x72;&#101;&#46;&#x63;&#x61;&#109;&#101;&#x72;&#x61;&#x2e;&#112;&#114;&#x6f;&#118;&#105;&#100;&#101;&#114;&#64;&#50;&#x2e;&#52;</a>::ICameraProvider”, “/legacy/0”)，</li>
 </ul>
 </li>
 </ol>
@@ -547,7 +543,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长">38 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
@@ -567,6 +563,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

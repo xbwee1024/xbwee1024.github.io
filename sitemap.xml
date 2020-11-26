@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.xbwee.space/2020/11/12/Android-External-USB-Cameras/</loc>
+    
+    <lastmod>2020-11-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.xbwee.space/googled7c6edc3a9953ead.html</loc>
     
     <lastmod>2020-11-25</lastmod>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>https://www.xbwee.space/2020/10/25/V4L2-Camera-HALv3/</loc>
-    
-    <lastmod>2020-11-25</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.xbwee.space/2020/11/12/Android-External-USB-Cameras/</loc>
     
     <lastmod>2020-11-25</lastmod>
     
@@ -104,14 +104,14 @@
   </url>
   
   <url>
-    <loc>https://www.xbwee.space/categories/android/camera-hal/</loc>
+    <loc>https://www.xbwee.space/categories/android/hal/</loc>
     <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.xbwee.space/categories/android/hal/</loc>
+    <loc>https://www.xbwee.space/categories/android/camera-hal/</loc>
     <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

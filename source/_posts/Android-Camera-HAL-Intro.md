@@ -12,18 +12,48 @@ categories:
 summary: android camera hal 介绍
 ---
 
-Android Camera HAL 截止目前最新版本是 HALv3，高端机型基本上都支持。熟悉了 {% post_link Android-HAL-Intro Android HAL 介绍 %} 接口继承关系，模块搜索、加载，设备打开、关闭的通用流程，再来看 Camera HAL 会更容易理解。
+Android Camera HAL 作为 Framework 层 Camera2 API 接口与底层硬件实现的桥梁，起着承上启下的作用。另外从 `Android 8.0` 开始使用了新的 `Treble` 架构（HAL 接口与实现代码在 `hardware/interfaces/camera/`），舍弃了原本旧的架构实现（Legacy HAL: `hardware/libhardware/modules/camera/`）。
 
-不过 Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化。模块接口增加了几个通用接口，设备接口层面则演化到最新的 HALv3。 v1, v2 对应 `android.hardware.Camera` API, 已经不再被支持。推荐实现 v3.2 及以上。
+Legacy HAL 当前还保留的内容：
+- `hardware/libhardware/include/hardware/camera*.h`, Camera Hal 接口定义，持续更新
+- `hardware/libhardware/modules/camera/3_0/`, `camera.default` Legacy 默认实现
+- `hardware/libhardware/modules/camera/3_4/`, `camera.v4l2` 非官方实现（树莓派）0
+
+截止目前最新版本是 HALv3，高端机型基本上都支持。Camera HAL 属于相对比较复杂的一个硬件模块，随着硬件模组的发展，HAL 接口也在不断变化 v1, v2 对应 `android.hardware.Camera` API, 已经不再被支持。
+
+熟悉了 {% post_link Android-HAL-Intro Android HAL 介绍 %} ，再来看 Camera HAL 会更容易理解。
+
+<!--more-->
+
+# Treble 架构下的 Camera HAL
+
+
+<img src="/images/ape_fwk_camera2.jpg" width="100%" height="100%" alt="Camera HAL 新架构">
+
+看图说话，简单总结一下：
+1. Camera 子系统可以分成三层来看，从上到下分别是 `App/Framework`，`CameraService`，`HAL Impl`
+2. `App/Framework` vs `CameraService` 之间，通过 `AIDL` binder 通信
+3. `CameraService` vs `Camera HAL` 之间，通过 `HIDL` binder 通信
+
+Treble 架构下，为了满足更多的 IPC binder 调用，提供了 3 个 binder 设备：
+- `/dev/binder`, 最早出现的 binder 设备，BnXXX， BpXXX 的 Service/Client 实现基础，`Android 8.0` 之后保留给 `Android Framework` 专用，vendor 实现无法访问。
+- `/dev/vndbinder`, 大部分硬件 HAL 设备使用该节点与上层通信，比如 camera，bluetooth，nfc，sensors
+- `/dev/hwbinder`, HIDL 实现的进程间通信都可以用
+
+
+内容比较多，单独更新一篇文章来讲：{% post_link Android-Camera-HAL-Treble Android Camera HAL 新架构 %}
+
+
+
+# Legacy Camera HAL
+
+
+## HAL 接口介绍
 
 模块名称定义如下，加载模块时根据模块名称搜索对应的动态库 `camera.variant.so`。
 ```c++
 #define CAMERA_HARDWARE_MODULE_ID "camera"
 ```
-
-<!--more-->
-
-## HAL 接口介绍
 
 > 模块接口，camera 通用方法，全局信息的查询。调用时要注意有些方法是无效的，调用前一定要做判空处理，兼容性查询 API 说明。
 

@@ -61,26 +61,16 @@ UVCCamera
 Copyright (c) 2014-2017 saki t_saki@serenegiant.com
 
 
-参考资料：
-> https://github.com/saki4510t/UVCCamera   
-https://github.com/libuvc/libuvc   
-https://github.com/libusb/libusb   
-https://ken.tossell.net/libuvc/doc/   
-https://libusb.info/
-
 
 # Android 官方推出的 ExternalCamera
 
-随着 Android P 版本升级，新增了 `External USB Cameras` 这个功能，默认情况该功能是关闭的，一些 HAL 组件不会编译到 ROM 中，需要打开更新 ROM 才行。另外该功能还依赖于 `android.hardware.usb.host` 以及 Linux kernel 打开 UVC 驱动支持。
+随着 Android P 版本升级，新增了 `External USB Cameras` 这个功能，默认情况该功能是关闭的，一些 HAL 组件不会编译到 ROM 中，需要打开更新 ROM 才行。另外该功能还依赖于 `android.hardware.usb.host` 以及 Linux kernel 打开 `UVC` 驱动支持。
 
-该实现会启动一个 hotplug 线程，监视 /dev/video* 设备增删情况，同步更新 camera 设备列表。
+该实现 HAL 会启动一个 `hotplug` 线程，监视 `/dev/video*` 设备节点增删情况，透过 HAL 回调函数通知 `CameraProviderManager` 更新 camera 设备列表。
 
 
-参考资料:
-> 【external camera】
-https://source.android.com/devices/camera/external-usb-cameras   
-【V4L2 Camera HAL questions】
-https://groups.google.com/g/android-platform/c/Qx1P0I17uzs?pli=1
+详细实操过程可以参考这篇文章：
+{% post_link Android-External-USB-Cameras Android External USB Cameras %}
 
 
 # camera.v4l2 实现
@@ -92,3 +82,28 @@ https://groups.google.com/g/android-platform/c/Qx1P0I17uzs?pli=1
 
 详细介绍可以参考这篇文章：
 {% post_link V4L2-Camera-HALv3 V4L2 Camera HALv3 介绍 %}
+
+
+
+# usbcamera HAL
+Google 早期提供的一个示例代码，是空实现。略过。  
+
+代码位置：
+[`hardware/libhardware/modules/usbcamera`](https://android.googlesource.com/platform/hardware/libhardware/+/refs/heads/master/modules/usbcamera/)
+
+
+
+# 参考资料
+> `libuvc`   
+https://github.com/saki4510t/UVCCamera   
+https://github.com/libuvc/libuvc   
+https://github.com/libusb/libusb   
+https://ken.tossell.net/libuvc/doc/   
+https://libusb.info/
+
+> `external usb camera`  
+https://source.android.com/devices/camera/external-usb-cameras    
+https://groups.google.com/g/android-platform/c/Qx1P0I17uzs?pli=1
+
+> `V4L2 Camera Hal`   
+https://android.googlesource.com/platform/hardware/libhardware/+/master/modules/camera/3_4/README.md

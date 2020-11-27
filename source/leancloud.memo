@@ -5,4 +5,6 @@
 {"title":"V4L2 Camera HALv3 介绍","url":"/2020/10/25/V4L2-Camera-HALv3/"},
 {"title":"Android USB Camera Implementations","url":"/2020/11/02/Android-USB-Camera-Implementations/"},
 {"title":"Android USB Camera 的支持与实现","url":"/2020/11/02/Android-USB-Camera-Implementations/"},
+{"title":"Android External USB Cameras","url":"/2020/11/12/Android-External-USB-Cameras/"},
+{"title":"Android Camera HAL 新架构","url":"/2020/11/18/Android-Camera-HAL-Treble/"},
 ]

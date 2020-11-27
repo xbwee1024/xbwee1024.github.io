@@ -13,7 +13,10 @@ categories:
 summary: 
 ---
 
-`camera.v4l2` 实现了 **Camera HALv3** 接口，底层调用了 `Video For Linux 2(V4L2)`，因此适用范围比较广泛，可以适配兼容 `V4L2` 接口的所有设备。不过相对于 `Android Camera` 来说，`V4L2` 存在一些局限性，造成一些功能缺失是正常的。
+`camera.v4l2` 实现了 **Camera HALv3** 接口，底层调用了 `Video For Linux 2(V4L2)`，因此适用范围比较广泛，可以适配兼容 `V4L2` 接口的所有设备。不过相对于 `Android Camera` 来说，`V4L2` 存在一些局限性，内置相机具备的一些功能可能不支持，但对于大多数应用场景来说，是没有问题的。
+
+这篇文章根据官方介绍，结合实践经验来介绍一下 `camera.v4l2` 的一些特性。有空再补充一些细节~
+
 <!--more-->
 
 ## 当前状态

@@ -18,16 +18,19 @@ summary: Treble 架构下的 Android Camera 介绍
 
 随着 `Android 8.0` 的 Treble 架构发布，相当于是把三驾马车里面的前两架放到了 `system.img` 里面，一起随着 Android 系统升级更新，而最后一个则独立拆分出来，不仅仅是放到了新的进程里面，而且在手机系统上要求放到 `vendor` 分区，这样可以各自独立升级。
 
-
 <!-- more -->
 
 # 三驾马车
+
+先附上 Google 官方图例：
+{% img /images/ape_fwk_camera2.jpg  374 298 "Camera HAL 新架构" %}
 
 `App Framework` 部分是最上层部分，包括 Java & C++ 代码，实现了 `Android Camera2 API` 接口，提供给 android 应用使用，Java 部分包含在 Android SDK 里面。
 
 > source tree  
 - Java 实现：  
     - https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/
+    - https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/camera2
 - C++ 实现：  
     - https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/jni/  
 
@@ -48,12 +51,57 @@ summary: Treble 架构下的 Android Camera 介绍
     - https://android.googlesource.com/platform/hardware/libhardware/+/refs/heads/master/modules/camera/
 
 
-如标题所示，这篇文章主要阐述 Treble 架构下的 Camera HAL 实现。先附上官方图例方便查阅
-{% img /images/ape_fwk_camera2.jpg  374 298 "Camera HAL 新架构" %}
 
 
 
-# Camera Provider 实现
+
+
+
+# 第二架马车：cameraserver
+
+
+`frameworks/av/camera/cameraserver/main_cameraserver.cpp`
+```c++
+#define LOG_TAG "cameraserver"
+//#define LOG_NDEBUG 0
+#include "CameraService.h"
+#include <hidl/HidlTransportSupport.h>
+using namespace android;
+int main(int argc __unused, char** argv __unused)
+{
+    signal(SIGPIPE, SIG_IGN);
+    // Set 5 threads for HIDL calls. Now cameraserver will serve HIDL calls in
+    // addition to consuming them from the Camera HAL as well.
+    hardware::configureRpcThreadpool(5, /*willjoin*/ false);
+    sp<ProcessState> proc(ProcessState::self());
+    sp<IServiceManager> sm = defaultServiceManager();
+    ALOGI("ServiceManager: %p", sm.get());
+    CameraService::instantiate();
+    ALOGI("ServiceManager: %p done instantiate", sm.get());
+    ProcessState::self()->startThreadPool();
+    IPCThreadState::self()->joinThreadPool();
+}
+
+```
+`frameworks/av/camera/cameraserver/cameraserver.rc`
+```
+service cameraserver /system/bin/cameraserver
+    class main
+    user cameraserver
+    group audio camera input drmrpc
+    ioprio rt 4
+    task_profiles CameraServiceCapacity MaxPerformance
+    rlimit rtprio 10 10
+```
+
+
+
+
+
+
+
+# 第三驾马车：HAL Impl
+## Camera Provider 实现
 
 首先，实现 hal 独立运行的进程，并向 `hwservicemanager` 注册 `ICameraProvider` 服务，对上层提供硬件功能，包括设备状态信息的查询/更新，获取设备接口以便可以调用设备功能。
 
@@ -68,8 +116,8 @@ AOSP 代码目前有两个 `ICameraProvider` 服务进程：
 - 启动 binary，调用 `defaultPassthroughServiceImplementation` 注册服务
 - manifest camera.provider 节点声明，包括 `ßtransport` 类型和 `instance` 实例节点名称
 
-进程启动时，会完成这么几件事，跟 `hwservicemanager`以及`PassthroughServiceManager`的交互通过 IPC 调用完成
-1. 确保 `/dev/vndbinder` 对应的 binder 驱动已经启动，如果没有则启动它; `/dev/binder`
+进程启动时，会完成这么几件事，跟 `hwservicemanager`以及`PassthroughServiceManager`的交互通过 binder IPC 调用完成
+1. 确保 `/dev/vndbinder` 对应的 binder 服务进程已经启动，如果没有则启动它
 2. 在该进程里透过 `android_dlopen_ext/dlopen` 加载对应版本的库，这里是`android.hardware.camera.provider@2.4-impl.so`
 3. 透过 `dlsym` 获取到 `HIDL_FETCH_ICameraProvider` 方法，然后遍历 manifest 里面 `camera.provider` 这个 `hidl` 接口声明的 `instance` 实例名称，作为参数调用该方法， 即可获取到该实例对应的 `ICameraProvider` 实现
 4. 向 hwservicemanager 注册该服务：
@@ -77,9 +125,9 @@ AOSP 代码目前有两个 `ICameraProvider` 服务进程：
    - 其次生成的 `CameraProvider` 对象也要透过 IPC 调用 `hidl::manager::add` 把自己添加到 `hwservicemanager`，因为上一步已经插入了一个对应的 `HidlService` 所以仅仅是更新 `pid`和 `service` 指向实例对象
    - (interfaceName， instanceName) 对应 internal camera provider 就是 ("android.hardware.camera.provider@2.4::ICameraProvider", "/legacy/0")，
 
-这几个步骤都在当前启动的进程里面调用完成，所以调用过程中透过 `IPCThreadState::self()->getCallingPid()` 获取到当前进程的pid，也就是提供服务的进程。
+这几个步骤都在当前启动的进程里面调用 `defaultPassthroughServiceImplementation` 完成的，所以调用过程中透过 `IPCThreadState::self()->getCallingPid()` 获取到当前进程的pid，也就是提供服务的进程。
 
-另外要参考 camera 源代码下面 `*.hal` 编译时由 `hidl-gen` 生成的中间源代码
+详细代码可以跟踪该函数查阅，另外还要参考 `hardware/interfaces/camera` 源代码下面 `*.hal` 编译时由 `hidl-gen` 生成的中间源代码
 {% img /images/ICameraProvider-hal-gen.jpg 364 419 "hidl-gen intermediates" %}
 
 
@@ -217,4 +265,13 @@ ICameraProvider* HIDL_FETCH_ICameraProvider(const char* name) {
 }  // namespace hardware
 }  // namespace android
 ```
+
+{% img /images/android_camera_hal.svg 514 953 %}
+
+
+
+
+
+
+
 

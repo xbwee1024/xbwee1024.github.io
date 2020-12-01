@@ -1,5 +1,5 @@
 ---
-title: Android External USB Cameras
+title: Android 外接 USB 摄像头
 top: false
 cover: false
 toc: true
@@ -10,12 +10,19 @@ categories:
     - android
     - camera hal
     - usbcamera
-summary: Summary of current implementations to use usb camera device on Android phone
+summary: 详述 Android 设备开启外接 USB 摄像头支持的实现
 ---
 
-如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，完整 HALv3 实现并接入到 cameraservice；但是默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。
+如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 `External USB Cameras` ，完整 HALv3 实现并接入到 cameraservice；可以让上层相机应用调用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 `Android Camera API2` 调用。
 
-这篇文章来探索如何开启 Android 设备对 usb camera 的支持，因为底层走 V4L2 控制硬件设备，所以支持 V4L2 驱动的视频设备都能支持，包括常见的单反，微单，pc 机用的 usb 相机，网络摄像头等等
+遗憾的是该功能默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。
+
+这篇文章详述如何开启 Android 手机上原生支持 USB 外接摄像头这个功能。因为底层走 V4L2 接口，所以支持 UVC 驱动的视频设备都能支持，包括常见的单反，微单，PC 机用的 usb 摄像头，网络摄像头等等，应用非常广泛。
+
+目前看网络上还没有这方面的相关资料，一些基于 android 系统开发的嵌入式设备可能有类似的功能实现，或者也有可能是直接使用这套方案的。
+
+> 提示：
+> 需要 root 权限的手机，并且可以源码编译
 
 <!-- more -->
 
@@ -151,25 +158,24 @@ adb push external_camera_config.xml /vendor/etc/
 
 还有个简单直接的办法，调试时暂时关闭 `sepolicy`
 ```sh
-getenforce # 查看是否开启
 setenforce 0    # 强制关闭 sepolicy
 ```
 
 # framework 修复
 
-上述动态库和配置文件都 ready 之后，极大可能还会遇到 binder crash，或者 JE 等各种崩溃，这是因为 OEM 厂商动了 AOSP 代码。不同的 OEM 修改不一样，不再一一列出来。
+上述动态库和配置文件都 ready 之后，极大可能还会遇到 binder crash，JE 等各种崩溃，或者 App 看不到0，1 之外的其它摄像头设备，这是因为 OEM 厂商动了 AOSP 代码。不同的 OEM 修改不一样。
 
-基本上都是改几行代码就能解决，主要是 `CameraManager.java` 这个文件! 看 log，看 log，看 log.... 重要的事情说三遍！
+基本上都是改几行代码就能解决，主要是 `CameraManager.java` 这个文件! 
 
 # 使用外接 usb camera
 
 ## Camera2Basic 预览
 
-编译安装 Camera2Basic 这个android demo app，手机连接 usb camera，打开app 界面，会看到有 **“External JPEG(/dev/videox)"** 这个设备:
+编译安装 Camera2Basic 这个android demo app，手机连接 usb camera，打开app 界面，会看到有 **“External JPEG(/dev/videox)"** 这个设备，点击打开预览。
 
 {% img /images/Screenshot_2020-11-17-19-19-31-610_Camera2Basic.jpg 270 560 "相机列表" %}
 
-点击打开预览，如下是连接单反长焦镜头手机截图，从此单反的大光圈虚化，N 倍光学变焦手机也可以拥有！
+如下是连接单反长焦镜头手机截图，从此单反的大光圈虚化，N 倍光学变焦手机也可以拥有！
 
 {% img /images/Screenshot_2020-11-26-18-42-17-619_Camera2Basic.jpg 270 560 "单反光学变焦" %}
 
@@ -184,7 +190,7 @@ Android Studio -> Import an Android code sample -> Camera2Basic -> 编译安装
 
 ## 微信视频通话
 
-微信默认使用前置摄像头（cameraId=1），只需要让 external usb camera 返回给 CameraProviderManager 看到的 `cameraId` 是 "1" 即可，验证可行，微信通话能正常走 usb camera 视频流，音频调用的是手机话筒。
+微信默认使用前置摄像头（cameraId=1），只需要让 external usb camera 返回给 CameraProviderManager 看到的 `cameraId` 是 "1" 即可。
 
 
 > 提示：  

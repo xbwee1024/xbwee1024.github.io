@@ -1,5 +1,5 @@
 ---
-title: Android USB Camera 的支持与实现
+title: Android USB Camera 的实现方案
 top: false
 cover: false
 toc: true
@@ -10,7 +10,7 @@ categories:
     - android
     - camera hal
     - usbcamera
-summary: Summary of current implementations to use usb camera device on Android phone
+summary: 
 ---
 
 Android 设备基于 `linux kernel`, 自带 `V4L2` 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。
@@ -48,7 +48,7 @@ cmake \
     -D CMAKE_INSTALL_PREFIX=your_install_path \
     -D CMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
     -D CMAKE_BUILD_TYPE=Debug \
-    -D ANDROID_NDK=${ANDROIDz_NDK} \
+    -D ANDROID_NDK=${ANDROID_NDK} \
     -D ANDROID_PLATFORM=android-28 \
     -D ANDROID_STL=c++_static \
     -D ANDROID_PIE=ON \
@@ -66,11 +66,11 @@ Copyright (c) 2014-2017 saki t_saki@serenegiant.com
 
 随着 Android P 版本升级，新增了 `External USB Cameras` 这个功能，默认情况该功能是关闭的，一些 HAL 组件不会编译到 ROM 中，需要打开更新 ROM 才行。另外该功能还依赖于 `android.hardware.usb.host` 以及 Linux kernel 打开 `UVC` 驱动支持。
 
-该实现 HAL 会启动一个 `hotplug` 线程，监视 `/dev/video*` 设备节点增删情况，透过 HAL 回调函数通知 `CameraProviderManager` 更新 camera 设备列表。
+该实现 HAL 会启动一个 `hotplug` 线程，监视 `/dev/video*` 设备节点增删情况，透过 HAL 回调函数通知 `CameraProviderManager` 更新 camera 设备列表。因为是 Google 原生支持，所以对上层 App Framework 来说，调用方式不需要变，依然调用 `Android Camera2 API`，只是看到的 cameraId 是类似 `/dev/video2` 之类的编号（内置相机是0，1，2 ... 纯数字编号）
 
 
 详细实操过程可以参考这篇文章：
-{% post_link Android-External-USB-Cameras Android External USB Cameras %}
+{% post_link Android-External-USB-Cameras "Android 外接 USB 摄像头" %}
 
 
 # camera.v4l2 实现

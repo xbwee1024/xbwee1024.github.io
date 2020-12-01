@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"www.xbwee.space","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，完整 HALv3 实现并接入到 cameraservice；但是默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。 这篇文章来探索如何开启 Android 设备对 usb camera 的支持，因为底层走 V4L2">
+  <meta name="description" content="如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 External USB Cameras ，完整 HALv3 实现并接入到 cameraservice；可以让上层相机应用调用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 Android Camera API2 调用。 遗憾的是该功能默认关闭，并且 OEM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 外接 USB 摄像头">
 <meta property="og:url" content="https://www.xbwee.space/2020/11/12/Android-External-USB-Cameras/index.html">
 <meta property="og:site_name" content="xbwee&#39;s blogs">
-<meta property="og:description" content="如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，完整 HALv3 实现并接入到 cameraservice；但是默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。 这篇文章来探索如何开启 Android 设备对 usb camera 的支持，因为底层走 V4L2">
+<meta property="og:description" content="如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 External USB Cameras ，完整 HALv3 实现并接入到 cameraservice；可以让上层相机应用调用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 Android Camera API2 调用。 遗憾的是该功能默认关闭，并且 OEM">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.xbwee.space/images/Screenshot_2020-11-17-19-19-31-610_Camera2Basic.jpg">
 <meta property="og:image" content="https://www.xbwee.space/images/Screenshot_2020-11-26-18-42-17-619_Camera2Basic.jpg">
 <meta property="og:image" content="https://www.xbwee.space/images/Screenshot_2020-11-26-18-42-40-228_Camera2Basic.jpg">
 <meta property="article:published_time" content="2020-11-12T09:42:17.000Z">
-<meta property="article:modified_time" content="2020-12-01T05:01:54.411Z">
+<meta property="article:modified_time" content="2020-12-01T12:23:43.401Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-01 13:01:54" itemprop="dateModified" datetime="2020-12-01T13:01:54+08:00">2020-12-01</time>
+                <time title="修改时间：2020-12-01 20:23:43" itemprop="dateModified" datetime="2020-12-01T20:23:43+08:00">2020-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +256,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.8k</span>
+              <span>6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -275,13 +275,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，完整 HALv3 实现并接入到 cameraservice；但是默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。</p>
-<p>这篇文章来探索如何开启 Android 设备对 usb camera 的支持，因为底层走 V4L2 接口，所以支持 UVC 驱动的视频设备都能支持，包括常见的单反，微单，pc 机用的 usb 相机，网络摄像头等等</p>
+        <p>如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 <code>External USB Cameras</code> ，完整 HALv3 实现并接入到 cameraservice；可以让上层相机应用调用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 <code>Android Camera API2</code> 调用。</p>
+<p>遗憾的是该功能默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。</p>
+<p>这篇文章详述如何开启 Android 手机上原生支持 USB 外接摄像头这个功能。因为底层走 V4L2 接口，所以支持 UVC 驱动的视频设备都能支持，包括常见的单反，微单，PC 机用的 usb 摄像头，网络摄像头等等，应用非常广泛。</p>
+<p>目前看网络上还没有这方面的相关资料，一些基于 android 系统开发的嵌入式设备可能有类似的功能实现，或者也有可能是直接使用这套方案的。</p>
 <blockquote>
 <p>提示：<br>需要 root 权限的手机，并且可以源码编译</p>
 </blockquote>
 <a id="more"></a>
 
+<p>这篇文章详述如何开启 Android 设备对 usb camera 的支持，</p>
 <p>首先确保手机系统支持 USB 主机模式 <code>android.hardware.usb.host</code>, 一个简单的办法是连接 usb 外设，然后安装运行<strong>USBEnumerator</strong> 这个 android demo app，看是否能列出连接的设备。</p>
 <blockquote>
 <blockquote>

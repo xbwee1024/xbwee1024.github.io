@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.xbwee.space/2020/11/18/Android-Camera-HAL-Treble/</loc>
+    <loc>https://www.xbwee.space/about/index.html</loc>
     
-    <lastmod>2020-11-27</lastmod>
+    <lastmod>2020-12-01</lastmod>
     
   </url>
   
   <url>
     <loc>https://www.xbwee.space/2020/11/12/Android-External-USB-Cameras/</loc>
     
-    <lastmod>2020-11-26</lastmod>
+    <lastmod>2020-11-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</loc>
+    
+    <lastmod>2020-11-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.xbwee.space/2020/11/18/Android-Camera-HAL-Treble/</loc>
+    
+    <lastmod>2020-11-27</lastmod>
     
   </url>
   
@@ -31,13 +45,6 @@
   
   <url>
     <loc>https://www.xbwee.space/2020/10/23/Android-Camera-HAL-Intro/</loc>
-    
-    <lastmod>2020-11-18</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</loc>
     
     <lastmod>2020-11-18</lastmod>
     
@@ -71,17 +78,10 @@
     
   </url>
   
-  <url>
-    <loc>https://www.xbwee.space/about/index.html</loc>
-    
-    <lastmod>2020-10-30</lastmod>
-    
-  </url>
-  
 
   <url>
     <loc>https://www.xbwee.space/</loc>
-    <lastmod>2020-11-27</lastmod>
+    <lastmod>2020-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -89,7 +89,7 @@
   
   <url>
     <loc>https://www.xbwee.space/tags/%E5%8E%9F%E5%88%9B/</loc>
-    <lastmod>2020-11-27</lastmod>
+    <lastmod>2020-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -98,28 +98,28 @@
   
   <url>
     <loc>https://www.xbwee.space/categories/android/</loc>
-    <lastmod>2020-11-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.xbwee.space/categories/android/camera-hal/</loc>
-    <lastmod>2020-11-27</lastmod>
+    <lastmod>2020-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.xbwee.space/categories/android/hal/</loc>
-    <lastmod>2020-11-27</lastmod>
+    <lastmod>2020-12-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.xbwee.space/categories/android/camera-hal/</loc>
+    <lastmod>2020-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.xbwee.space/categories/android/camera-hal/usbcamera/</loc>
-    <lastmod>2020-11-27</lastmod>
+    <lastmod>2020-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

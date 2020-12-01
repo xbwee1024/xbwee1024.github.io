@@ -31,8 +31,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.xbwee.space/images/ape_fwk_camera2.jpg">
 <meta property="og:image" content="https://www.xbwee.space/images/ICameraProvider-hal-gen.jpg">
+<meta property="og:image" content="https://www.xbwee.space/images/android_camera_hal.svg">
 <meta property="article:published_time" content="2020-11-18T09:40:24.000Z">
-<meta property="article:modified_time" content="2020-11-27T02:59:30.095Z">
+<meta property="article:modified_time" content="2020-11-27T07:27:42.850Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
@@ -208,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-27 10:59:30" itemprop="dateModified" datetime="2020-11-27T10:59:30+08:00">2020-11-27</time>
+                <time title="修改时间：2020-11-27 15:27:42" itemprop="dateModified" datetime="2020-11-27T15:27:42+08:00">2020-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,14 +252,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.8k</span>
+              <span>8.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -275,13 +276,17 @@
 <p>随着 <code>Android 8.0</code> 的 Treble 架构发布，相当于是把三驾马车里面的前两架放到了 <code>system.img</code> 里面，一起随着 Android 系统升级更新，而最后一个则独立拆分出来，不仅仅是放到了新的进程里面，而且在手机系统上要求放到 <code>vendor</code> 分区，这样可以各自独立升级。</p>
 <a id="more"></a>
 
-<h1 id="三驾马车"><a href="#三驾马车" class="headerlink" title="三驾马车"></a>三驾马车</h1><p><code>App Framework</code> 部分是最上层部分，包括 Java &amp; C++ 代码，实现了 <code>Android Camera2 API</code> 接口，提供给 android 应用使用，Java 部分包含在 Android SDK 里面。</p>
+<h1 id="三驾马车"><a href="#三驾马车" class="headerlink" title="三驾马车"></a>三驾马车</h1><p>先附上 Google 官方图例：</p>
+<img src="/images/ape_fwk_camera2.jpg" class="" width="374" height="298" title="Camera HAL 新架构">
+
+<p><code>App Framework</code> 部分是最上层部分，包括 Java &amp; C++ 代码，实现了 <code>Android Camera2 API</code> 接口，提供给 android 应用使用，Java 部分包含在 Android SDK 里面。</p>
 <blockquote>
 <p>source tree  </p>
 </blockquote>
 <ul>
 <li>Java 实现：  <ul>
 <li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/">https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/</a></li>
+<li><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/camera2">https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/hardware/camera2</a></li>
 </ul>
 </li>
 <li>C++ 实现：  <ul>
@@ -315,12 +320,18 @@
 </ul>
 </li>
 </ul>
-<p>如标题所示，这篇文章主要阐述 Treble 架构下的 Camera HAL 实现。先附上官方图例方便查阅</p>
-<img src="/images/ape_fwk_camera2.jpg" class="" width="374" height="298" title="Camera HAL 新架构">
+<h1 id="第二架马车：cameraserver"><a href="#第二架马车：cameraserver" class="headerlink" title="第二架马车：cameraserver"></a>第二架马车：cameraserver</h1><p><code>frameworks/av/camera/cameraserver/main_cameraserver.cpp</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOG_TAG <span class="meta-string">&quot;cameraserver&quot;</span></span></span><br><span class="line"><span class="comment">//#define LOG_NDEBUG 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;CameraService.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;hidl/HidlTransportSupport.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> android;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc __unused, <span class="keyword">char</span>** argv __unused)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    signal(SIGPIPE, SIG_IGN);</span><br><span class="line">    <span class="comment">// Set 5 threads for HIDL calls. Now cameraserver will serve HIDL calls in</span></span><br><span class="line">    <span class="comment">// addition to consuming them from the Camera HAL as well.</span></span><br><span class="line">    hardware::configureRpcThreadpool(<span class="number">5</span>, <span class="comment">/*willjoin*/</span> <span class="literal">false</span>);</span><br><span class="line">    <span class="function">sp&lt;ProcessState&gt; <span class="title">proc</span><span class="params">(ProcessState::self())</span></span>;</span><br><span class="line">    sp&lt;IServiceManager&gt; sm = defaultServiceManager();</span><br><span class="line">    ALOGI(<span class="string">&quot;ServiceManager: %p&quot;</span>, sm.get());</span><br><span class="line">    CameraService::instantiate();</span><br><span class="line">    ALOGI(<span class="string">&quot;ServiceManager: %p done instantiate&quot;</span>, sm.get());</span><br><span class="line">    ProcessState::self()-&gt;startThreadPool();</span><br><span class="line">    IPCThreadState::self()-&gt;joinThreadPool();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>frameworks/av/camera/cameraserver/cameraserver.rc</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">service cameraserver &#x2F;system&#x2F;bin&#x2F;cameraserver</span><br><span class="line">    class main</span><br><span class="line">    user cameraserver</span><br><span class="line">    group audio camera input drmrpc</span><br><span class="line">    ioprio rt 4</span><br><span class="line">    task_profiles CameraServiceCapacity MaxPerformance</span><br><span class="line">    rlimit rtprio 10 10</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="Camera-Provider-实现"><a href="#Camera-Provider-实现" class="headerlink" title="Camera Provider 实现"></a>Camera Provider 实现</h1><p>首先，实现 hal 独立运行的进程，并向 <code>hwservicemanager</code> 注册 <code>ICameraProvider</code> 服务，对上层提供硬件功能，包括设备状态信息的查询/更新，获取设备接口以便可以调用设备功能。</p>
+
+
+
+
+<h1 id="第三驾马车：HAL-Impl"><a href="#第三驾马车：HAL-Impl" class="headerlink" title="第三驾马车：HAL Impl"></a>第三驾马车：HAL Impl</h1><h2 id="Camera-Provider-实现"><a href="#Camera-Provider-实现" class="headerlink" title="Camera Provider 实现"></a>Camera Provider 实现</h2><p>首先，实现 hal 独立运行的进程，并向 <code>hwservicemanager</code> 注册 <code>ICameraProvider</code> 服务，对上层提供硬件功能，包括设备状态信息的查询/更新，获取设备接口以便可以调用设备功能。</p>
 <p>AOSP 代码目前有两个 <code>ICameraProvider</code> 服务进程：</p>
 <ul>
 <li><code>legacy/0</code>, 给内置相机用, 所以目前为止，Camera HALv3 实现还是属于<code>传统 HAL</code>，参考<a target="_blank" rel="noopener" href="https://source.android.google.cn/devices/architecture/hal-types?hl=zh-cn">HAL 类型</a></li>
@@ -333,20 +344,20 @@
 <li>启动 binary，调用 <code>defaultPassthroughServiceImplementation</code> 注册服务</li>
 <li>manifest camera.provider 节点声明，包括 <code>ßtransport</code> 类型和 <code>instance</code> 实例节点名称</li>
 </ul>
-<p>进程启动时，会完成这么几件事，跟 <code>hwservicemanager</code>以及<code>PassthroughServiceManager</code>的交互通过 IPC 调用完成</p>
+<p>进程启动时，会完成这么几件事，跟 <code>hwservicemanager</code>以及<code>PassthroughServiceManager</code>的交互通过 binder IPC 调用完成</p>
 <ol>
-<li>确保 <code>/dev/vndbinder</code> 对应的 binder 驱动已经启动，如果没有则启动它; <code>/dev/binder</code></li>
+<li>确保 <code>/dev/vndbinder</code> 对应的 binder 服务进程已经启动，如果没有则启动它</li>
 <li>在该进程里透过 <code>android_dlopen_ext/dlopen</code> 加载对应版本的库，这里是<code>android.hardware.camera.provider@2.4-impl.so</code></li>
 <li>透过 <code>dlsym</code> 获取到 <code>HIDL_FETCH_ICameraProvider</code> 方法，然后遍历 manifest 里面 <code>camera.provider</code> 这个 <code>hidl</code> 接口声明的 <code>instance</code> 实例名称，作为参数调用该方法， 即可获取到该实例对应的 <code>ICameraProvider</code> 实现</li>
 <li>向 hwservicemanager 注册该服务：<ul>
 <li>首先在 <code>hwservicemanager</code> 中插入一个 <code>HidlService</code> (interfaceName, instanceName)</li>
 <li>其次生成的 <code>CameraProvider</code> 对象也要透过 IPC 调用 <code>hidl::manager::add</code> 把自己添加到 <code>hwservicemanager</code>，因为上一步已经插入了一个对应的 <code>HidlService</code> 所以仅仅是更新 <code>pid</code>和 <code>service</code> 指向实例对象</li>
-<li>(interfaceName， instanceName) 对应 internal camera provider 就是 (“<a href="mailto:&#97;&#x6e;&#x64;&#x72;&#111;&#105;&#100;&#x2e;&#104;&#97;&#x72;&#x64;&#x77;&#97;&#x72;&#101;&#x2e;&#99;&#97;&#x6d;&#101;&#x72;&#97;&#46;&#112;&#114;&#111;&#118;&#x69;&#x64;&#x65;&#x72;&#x40;&#50;&#x2e;&#x34;">&#97;&#x6e;&#x64;&#x72;&#111;&#105;&#100;&#x2e;&#104;&#97;&#x72;&#x64;&#x77;&#97;&#x72;&#101;&#x2e;&#99;&#97;&#x6d;&#101;&#x72;&#97;&#46;&#112;&#114;&#111;&#118;&#x69;&#x64;&#x65;&#x72;&#x40;&#50;&#x2e;&#x34;</a>::ICameraProvider”, “/legacy/0”)，</li>
+<li>(interfaceName， instanceName) 对应 internal camera provider 就是 (“<a href="mailto:&#97;&#x6e;&#x64;&#114;&#111;&#x69;&#x64;&#46;&#104;&#97;&#114;&#x64;&#x77;&#97;&#114;&#101;&#x2e;&#x63;&#x61;&#x6d;&#101;&#114;&#x61;&#x2e;&#112;&#x72;&#111;&#118;&#x69;&#x64;&#101;&#114;&#64;&#50;&#x2e;&#x34;">&#97;&#x6e;&#x64;&#114;&#111;&#x69;&#x64;&#46;&#104;&#97;&#114;&#x64;&#x77;&#97;&#114;&#101;&#x2e;&#x63;&#x61;&#x6d;&#101;&#114;&#x61;&#x2e;&#112;&#x72;&#111;&#118;&#x69;&#x64;&#101;&#114;&#64;&#50;&#x2e;&#x34;</a>::ICameraProvider”, “/legacy/0”)，</li>
 </ul>
 </li>
 </ol>
-<p>这几个步骤都在当前启动的进程里面调用完成，所以调用过程中透过 <code>IPCThreadState::self()-&gt;getCallingPid()</code> 获取到当前进程的pid，也就是提供服务的进程。</p>
-<p>另外要参考 camera 源代码下面 <code>*.hal</code> 编译时由 <code>hidl-gen</code> 生成的中间源代码</p>
+<p>这几个步骤都在当前启动的进程里面调用 <code>defaultPassthroughServiceImplementation</code> 完成的，所以调用过程中透过 <code>IPCThreadState::self()-&gt;getCallingPid()</code> 获取到当前进程的pid，也就是提供服务的进程。</p>
+<p>详细代码可以跟踪该函数查阅，另外还要参考 <code>hardware/interfaces/camera</code> 源代码下面 <code>*.hal</code> 编译时由 <code>hidl-gen</code> 生成的中间源代码</p>
 <img src="/images/ICameraProvider-hal-gen.jpg" class="" width="364" height="419" title="hidl-gen intermediates">
 
 
@@ -370,6 +381,15 @@
 <p>同时 <code>CameraProvider</code> 类的实现是一个模板类工厂，根据不同模板参数创建对应的类实例。</p>
 <p><code>hardware/interfaces/camera/provider/2.4/default/CameraProvider_2_4.cpp</code></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;CameraProvider_2_4.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;LegacyCameraProviderImpl_2_4.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ExternalCameraProviderImpl_2_4.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *kLegacyProviderName = <span class="string">&quot;legacy/0&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *kExternalProviderName = <span class="string">&quot;external/0&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> android &#123;</span><br><span class="line"><span class="keyword">namespace</span> hardware &#123;</span><br><span class="line"><span class="keyword">namespace</span> camera &#123;</span><br><span class="line"><span class="keyword">namespace</span> provider &#123;</span><br><span class="line"><span class="keyword">namespace</span> V2_4 &#123;</span><br><span class="line"><span class="keyword">namespace</span> implementation &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> android::hardware:<span class="emoji" alias="camera" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4f7.png?v8">&#x1f4f7;</span>:provider::V2_4::ICameraProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function">ICameraProvider* <span class="title">HIDL_FETCH_ICameraProvider</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IMPL&gt;</span><br><span class="line"><span class="function">CameraProvider&lt;IMPL&gt;* <span class="title">getProviderImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    CameraProvider&lt;IMPL&gt; *provider = <span class="keyword">new</span> CameraProvider&lt;IMPL&gt;();</span><br><span class="line">    <span class="keyword">if</span> (provider == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        ALOGE(<span class="string">&quot;%s: cannot allocate camera provider!&quot;</span>, __FUNCTION__);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (provider-&gt;isInitFailed()) &#123;</span><br><span class="line">        ALOGE(<span class="string">&quot;%s: camera provider init failed!&quot;</span>, __FUNCTION__);</span><br><span class="line">        <span class="keyword">delete</span> provider;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> provider;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ICameraProvider* <span class="title">HIDL_FETCH_ICameraProvider</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> android::hardware:<span class="emoji" alias="camera" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4f7.png?v8">&#x1f4f7;</span>:provider::V2_4::implementation;</span><br><span class="line">    ICameraProvider* provider = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(name, kLegacyProviderName) == <span class="number">0</span>) &#123;</span><br><span class="line">        provider = getProviderImpl&lt;LegacyCameraProviderImpl_2_4&gt;();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strcmp</span>(name, kExternalProviderName) == <span class="number">0</span>) &#123;</span><br><span class="line">        provider = getProviderImpl&lt;ExternalCameraProviderImpl_2_4&gt;();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ALOGE(<span class="string">&quot;%s: unknown instance name: %s&quot;</span>, __FUNCTION__, name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> provider;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;  <span class="comment">// namespace implementation</span></span><br><span class="line">&#125;  <span class="comment">// namespace V2_4</span></span><br><span class="line">&#125;  <span class="comment">// namespace provider</span></span><br><span class="line">&#125;  <span class="comment">// namespace camera</span></span><br><span class="line">&#125;  <span class="comment">// namespace hardware</span></span><br><span class="line">&#125;  <span class="comment">// namespace android</span></span><br></pre></td></tr></table></figure>
+
+<img src="/images/android_camera_hal.svg" class="" width="514" height="953">
+
+
+
+
+
+
+
 
 
     </div>
@@ -406,8 +426,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/11/12/Android-External-USB-Cameras/" rel="prev" title="Android External USB Cameras">
-      <i class="fa fa-chevron-left"></i> Android External USB Cameras
+    <a href="/2020/11/12/Android-External-USB-Cameras/" rel="prev" title="Android 外接 USB 摄像头">
+      <i class="fa fa-chevron-left"></i> Android 外接 USB 摄像头
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -469,7 +489,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E9%A9%BE%E9%A9%AC%E8%BD%A6"><span class="nav-number">1.</span> <span class="nav-text">三驾马车</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Camera-Provider-%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">Camera Provider 实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E9%A9%BE%E9%A9%AC%E8%BD%A6"><span class="nav-number">1.</span> <span class="nav-text">三驾马车</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%9E%B6%E9%A9%AC%E8%BD%A6%EF%BC%9Acameraserver"><span class="nav-number">2.</span> <span class="nav-text">第二架马车：cameraserver</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%A9%BE%E9%A9%AC%E8%BD%A6%EF%BC%9AHAL-Impl"><span class="nav-number">3.</span> <span class="nav-text">第三驾马车：HAL Impl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Camera-Provider-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.1.</span> <span class="nav-text">Camera Provider 实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -545,12 +565,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">41k</span>
+    <span title="站点总字数">43k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

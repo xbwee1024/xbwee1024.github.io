@@ -24,13 +24,13 @@
 
   <meta name="description" content="Android 设备基于 linux kernel, 自带 V4L2 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。 这里简单介绍几种针对开发者来说，可选择的实现方案.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android USB Camera 的支持与实现">
+<meta property="og:title" content="Android USB Camera 的实现方案">
 <meta property="og:url" content="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/index.html">
 <meta property="og:site_name" content="xbwee&#39;s blogs">
 <meta property="og:description" content="Android 设备基于 linux kernel, 自带 V4L2 支持，但是 OEM 厂商实现不同，大多默认关闭该功能。所以一般开发者或终端用户想要在 Android 设备上使用 usb camera 不是一件容易的事情。 这里简单介绍几种针对开发者来说，可选择的实现方案.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-02T06:36:18.000Z">
-<meta property="article:modified_time" content="2020-11-18T03:11:12.119Z">
+<meta property="article:modified_time" content="2020-11-30T03:55:12.999Z">
 <meta property="article:author" content="xbwee">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Android USB Camera 的支持与实现 | xbwee's blogs</title>
+  <title>Android USB Camera 的实现方案 | xbwee's blogs</title>
   
 
 
@@ -188,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android USB Camera 的支持与实现
+          Android USB Camera 的实现方案
         </h1>
 
         <div class="post-meta">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-18 11:11:12" itemprop="dateModified" datetime="2020-11-18T11:11:12+08:00">2020-11-18</time>
+                <time title="修改时间：2020-11-30 11:55:12" itemprop="dateModified" datetime="2020-11-30T11:55:12+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,7 +226,7 @@
             </span>
 
           
-            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera 的支持与实现" title="阅读次数">
+            <span id="/2020/11/02/Android-USB-Camera-Implementations/" class="post-meta-item leancloud_visitors" data-flag-title="Android USB Camera 的实现方案" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -252,14 +252,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -297,12 +297,12 @@
 
 <p>UVCCamera</p>
 <blockquote>
-<p>library and sample to access to UVC web camera on non-rooted Android device<br>Copyright (c) 2014-2017 saki <a href="mailto:&#116;&#x5f;&#115;&#97;&#x6b;&#105;&#64;&#115;&#101;&#x72;&#x65;&#110;&#101;&#x67;&#105;&#97;&#x6e;&#x74;&#46;&#x63;&#111;&#x6d;">&#116;&#x5f;&#115;&#97;&#x6b;&#105;&#64;&#115;&#101;&#x72;&#x65;&#110;&#101;&#x67;&#105;&#97;&#x6e;&#x74;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>library and sample to access to UVC web camera on non-rooted Android device<br>Copyright (c) 2014-2017 saki <a href="mailto:&#116;&#95;&#115;&#x61;&#107;&#x69;&#x40;&#x73;&#x65;&#114;&#101;&#110;&#101;&#103;&#x69;&#97;&#x6e;&#x74;&#x2e;&#x63;&#x6f;&#109;">&#116;&#95;&#115;&#x61;&#107;&#x69;&#x40;&#x73;&#x65;&#114;&#101;&#110;&#101;&#103;&#x69;&#97;&#x6e;&#x74;&#x2e;&#x63;&#x6f;&#109;</a></p>
 </blockquote>
 <h1 id="Android-官方推出的-ExternalCamera"><a href="#Android-官方推出的-ExternalCamera" class="headerlink" title="Android 官方推出的 ExternalCamera"></a>Android 官方推出的 ExternalCamera</h1><p>随着 Android P 版本升级，新增了 <code>External USB Cameras</code> 这个功能，默认情况该功能是关闭的，一些 HAL 组件不会编译到 ROM 中，需要打开更新 ROM 才行。另外该功能还依赖于 <code>android.hardware.usb.host</code> 以及 Linux kernel 打开 <code>UVC</code> 驱动支持。</p>
-<p>该实现 HAL 会启动一个 <code>hotplug</code> 线程，监视 <code>/dev/video*</code> 设备节点增删情况，透过 HAL 回调函数通知 <code>CameraProviderManager</code> 更新 camera 设备列表。</p>
+<p>该实现 HAL 会启动一个 <code>hotplug</code> 线程，监视 <code>/dev/video*</code> 设备节点增删情况，透过 HAL 回调函数通知 <code>CameraProviderManager</code> 更新 camera 设备列表。因为是 Google 原生支持，所以对上层 App Framework 来说，调用方式不需要变，依然调用 <code>Android Camera2 API</code>，只是看到的 cameraId 是类似 <code>/dev/video2</code> 之类的编号（内置相机是0，1，2 … 纯数字编号）</p>
 <p>详细实操过程可以参考这篇文章：</p>
-<a href="/2020/11/12/Android-External-USB-Cameras/" title="Android External USB Cameras">Android External USB Cameras</a>
+<a href="/2020/11/12/Android-External-USB-Cameras/" title="Android 外接 USB 摄像头">Android 外接 USB 摄像头</a>
 
 
 <h1 id="camera-v4l2-实现"><a href="#camera-v4l2-实现" class="headerlink" title="camera.v4l2 实现"></a>camera.v4l2 实现</h1><p>该库也是基于 <code>V4L2</code> 的 <code>Camera HALv3</code> 实现，原本是 Google 开发出来给树莓派系统使用的。所以从 Android AOSP 代码库里面可以找到这份源代码，但是只有 HAL 实现，没有接入 Android Framework，也就是 cameraserver 是调用不到的。如果有树莓派源代码的话倒是可以参考看看，不过估计也是基于这个初阶版本改过甚至是采用了全新的实现。</p>
@@ -338,7 +338,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/" title="Android USB Camera 的支持与实现">https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</a>
+    <a href="https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/" title="Android USB Camera 的实现方案">https://www.xbwee.space/2020/11/02/Android-USB-Camera-Implementations/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -362,8 +362,8 @@
       <i class="fa fa-chevron-left"></i> V4L2 Camera HALv3 介绍
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/11/12/Android-External-USB-Cameras/" rel="next" title="Android External USB Cameras">
-      Android External USB Cameras <i class="fa fa-chevron-right"></i>
+    <a href="/2020/11/12/Android-External-USB-Cameras/" rel="next" title="Android 外接 USB 摄像头">
+      Android 外接 USB 摄像头 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -500,12 +500,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">41k</span>
+    <span title="站点总字数">43k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

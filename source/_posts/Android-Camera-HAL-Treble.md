@@ -269,7 +269,12 @@ ICameraProvider* HIDL_FETCH_ICameraProvider(const char* name) {
 {% img /images/android_camera_hal.svg 514 953 %}
 
 
+# 自研 HAL 接入的方式
 
+{% img /images/hal_ext.svg 897 793 %}
+
+
+To be continued...
 
 
 

@@ -423,7 +423,7 @@ camera_module_t.common.module_api_version
 - Camera arbitration hints， 增加提示信息：同时打开使用的相机个数， `get_camera_info` 调用返回后，`camera_info.resource_cost`, `camera_info.conflicting_devices`必须被设置
 - module 初始化支持，在模块被加载后，其它方法被调用之前，初始化被调用，做一次性的初始化工作
 
-### ersion: 2.5 [CAMERA_MODULE_API_VERSION_2_5]
+### Version: 2.5 [CAMERA_MODULE_API_VERSION_2_5]
 - 可查询对象可以是逻辑相机，而不仅仅是物理相机设备
 - 增加 stream combination 能力查询
 - 完整的设备状态通知，比如 shutter 的 folding/unfolding, covering/uncovering
@@ -459,16 +459,16 @@ Camera device HAL 3.6[ CAMERA_DEVICE_API_VERSION_3_6 ], 是当前推荐支持的
 - 支持 `android.hardware.Camera` API
 - 有限的 `android.hardware.Camera2` API
 
-CAMERA_DEVICE_API_VERSION_3_2 及以上
+`CAMERA_DEVICE_API_VERSION_3_2` 及以上
 - `camera_module_t.common.module_api_version` 最低要求 `2.2`
 
-CAMERA_DEVICE_API_VERSION_3_1 及以下
+`CAMERA_DEVICE_API_VERSION_3_1` 及以下
 - `camera_module_t.common.module_api_version` 最低要求 `2.0`
 
-CAMERA_DEVICE_API_VERSION_2_0 及以下
+`CAMERA_DEVICE_API_VERSION_2_0` 及以下
 - `camera_module_t.common.module_api_version` 要求`1.0`
 
-### 1.0: Initial Android camera HAL (Android 4.0) [camera.h]
+### 1.0: 初版 Android camera HAL (Android 4.0) [camera.h]
 - 由 C++ `CameraHardwareInterface` 抽象接口转换而来
 - 支持 `android.hardware.Camera` API
 
@@ -537,9 +537,8 @@ CAMERA_DEVICE_API_VERSION_2_0 及以下
 
 
 
-## Startup and operation sequencing
+## Camera HAL 启动和调用流程
 
-Camera HAL 启动和调用流程，
 1. Framework 调用`camera_module_t->common.open()`, 返回`hardware_device_t`结构.
 2. Framework 根据`hardware_device_t->version`的值，把返回的对象实例转换成对应版本的 device handler； 比如 `CAMERA_DEVICE_API_VERSION_3_0`则转换成`camera3_device_t`
 3. Framework 调用`camera3_device_t->ops->initialize`, 必须是在`open`之后其它功能函数调用之前；如果不需要可以置空。
@@ -563,7 +562,7 @@ Camera HAL 启动和调用流程，
     - HAL 可以调用多次`process_capture_result` 更新 **partial metadata results**, Framework 负责合成最终的结果
     - 特别地，对于第 N 帧和第 N+1 帧，该回调可以被同时调到
 
-11. 一段时间之后，Framework 停止发送 request，并等待所有 capture 处理完成。然后又调用 `configure_streams`, 这会重置相机硬件和 pipeline，重新配置输入输出流，流可以被复用，。并且已注册过的输出流不需要再注册。如果至少有一个注册流，则重复 step7 开始的过程。如果没有注册流，则重复 step5 之后的过程。
+11. 一段时间之后，Framework 停止发送 request，并等待所有 capture 处理完成。然后又调用 `configure_streams`, 这会重置相机硬件和 pipeline，重新配置输入输出流，流可以被复用，并且已注册过的输出流不需要再注册。如果至少有一个注册流，则重复 step7 开始的过程。如果没有注册流，则重复 step5 之后的过程。
 
 12. Framework 调用 `camera3_device_t->common->close()` 关闭相机设备，该调用是同步调用过程，需要等待所有输出返回。close 返回之后，HAL 不再允许调用 `camera3_callback_ops_t` 的任何方法
 

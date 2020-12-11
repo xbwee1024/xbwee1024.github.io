@@ -13,16 +13,17 @@ categories:
 summary: 详述 Android 设备开启外接 USB 摄像头支持的实现
 ---
 
-如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 `External USB Cameras` ，完整 HALv3 实现并接入到 cameraservice；可以让上层相机应用调用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 `Android Camera API2` 调用。
+如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 `External USB Cameras` ，完整 HALv3 实现并接入到 cameraservice；可以让任何三方相机应用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 `Android Camera API2` 调用。
 
 遗憾的是该功能默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。
 
 这篇文章详述如何开启 Android 手机上原生支持 USB 外接摄像头这个功能。因为底层走 V4L2 接口，所以支持 UVC 驱动的视频设备都能支持，包括常见的单反，微单，PC 机用的 usb 摄像头，网络摄像头等等，应用非常广泛。
 
-目前看网络上还没有这方面的相关资料，一些嵌入式设备可能有类似的功能实现 (基于 `Linux` 或 `Qt`)，基于 android 系统开发的也有可能是直接使用这套方案的。当然也可以实现自己的 HAL 模块并接入 Android Camera HAL 子系统，具体可参考其它文章介绍 {% post_link Android-Camera-HAL-Treble  Android Camera HAL 新架构 %}
+目前看网络上还没有这方面的相关资料，一些嵌入式设备可能有类似的功能实现 (基于 `Linux` 或 `Qt`)，基于 android 系统开发的也有可能是直接使用这套方案的。当然也可以实现自己的 HAL 模块并接入 Android Camera HAL 子系统，具体可参考这篇文章介绍 {% post_link Android-Camera-HAL-Treble  Android Camera HAL 新架构 %}
 
 > 提示：
 > 需要 root 权限的手机，并且可以源码编译
+> 如果都没有，退而求其次，备选方案可参考这篇文章 {% post_link Android-USB-Camera-Implementations  Android USB Camera 的实现方案 %}
 
 <!-- more -->
 

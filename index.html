@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-09 10:49:35" itemprop="dateModified" datetime="2020-12-09T10:49:35+08:00">2020-12-09</time>
+                <time title="修改时间：2020-12-16 20:36:06" itemprop="dateModified" datetime="2020-12-16T20:36:06+08:00">2020-12-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -324,7 +324,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-10 15:42:53" itemprop="dateModified" datetime="2020-12-10T15:42:53+08:00">2020-12-10</time>
+                <time title="修改时间：2020-12-11 13:59:45" itemprop="dateModified" datetime="2020-12-11T13:59:45+08:00">2020-12-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -393,7 +393,7 @@
           <p>如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 <code>External USB Cameras</code> ，完整 HALv3 实现并接入到 cameraservice；可以让任何三方相机应用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 <code>Android Camera API2</code> 调用。</p>
 <p>遗憾的是该功能默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。</p>
 <p>这篇文章详述如何开启 Android 手机上原生支持 USB 外接摄像头这个功能。因为底层走 V4L2 接口，所以支持 UVC 驱动的视频设备都能支持，包括常见的单反，微单，PC 机用的 usb 摄像头，网络摄像头等等，应用非常广泛。</p>
-<p>目前看网络上还没有这方面的相关资料，一些嵌入式设备可能有类似的功能实现 (基于 <code>Linux</code> 或 <code>Qt</code>)，基于 android 系统开发的也有可能是直接使用这套方案的。当然也可以实现自己的 HAL 模块并接入 Android Camera HAL 子系统，具体可参考其它文章介绍 <a href="/2020/11/18/Android-Camera-HAL-Treble/" title="Android Camera HAL 新架构">Android Camera HAL 新架构</a></p>
+<p>目前看网络上还没有这方面的相关资料，一些嵌入式设备可能有类似的功能实现 (基于 <code>Linux</code> 或 <code>Qt</code>)，基于 android 系统开发的也有可能是直接使用这套方案的。当然也可以实现自己的 HAL 模块并接入 Android Camera HAL 子系统，具体可参考这篇文章介绍 <a href="/2020/11/18/Android-Camera-HAL-Treble/" title="Android Camera HAL 新架构">Android Camera HAL 新架构</a></p>
 <blockquote>
 <p>提示：<br>需要 root 权限的手机，并且可以源码编译<br>如果都没有，退而求其次，备选方案可参考这篇文章 <a href="/2020/11/02/Android-USB-Camera-Implementations/" title="Android USB Camera 的实现方案">Android USB Camera 的实现方案</a></p>
 </blockquote>

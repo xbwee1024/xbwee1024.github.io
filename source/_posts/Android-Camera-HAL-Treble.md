@@ -23,7 +23,7 @@ summary: Treble 架构下的 Android Camera 介绍
 # 三驾马车
 
 先附上 Google 官方图例：
-{% img /images/ape_fwk_camera2.jpg  374 298 "Camera HAL 新架构" %}
+{% img /images/ape_fwk_camera2.jpg  749 596 "Camera HAL 新架构" %}
 
 `App Framework` 部分是最上层部分，包括 Java & C++ 代码，实现了 `Android Camera2 API` 接口，提供给 android 应用使用，Java 部分包含在 Android SDK 里面。
 

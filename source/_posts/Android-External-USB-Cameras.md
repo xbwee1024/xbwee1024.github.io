@@ -13,7 +13,9 @@ categories:
 summary: 详述 Android 设备开启外接 USB 摄像头支持的实现
 ---
 
-如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 `External USB Cameras` ，完整 HALv3 实现并接入到 cameraservice；可以让任何三方相机应用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 `Android Camera API2` 调用。
+To be continued...
+<!-- 
+如前述文章所述，Google 在 Android P 上提供了对 usb camera 设备的支持，官方叫法是 `External USB Cameras` ，提供了完整 HALv3 实现并接入到 `CameraProviderManager`；可以让任何三方相机应用轻松调用到外接 USB 摄像头功能，而且使用方法跟内置相机几无差别，都是透过 `Android Camera API2` 调用。
 
 遗憾的是该功能默认关闭，并且 OEM 厂商大概率也会去改 AOSP 代码，比如 multi-caemra，SAT 等功能的实现，有可能会对其造成影响。
 
@@ -200,7 +202,7 @@ Android Studio -> Import an Android code sample -> Camera2Basic -> 编译安装
 - CameraProviderManager 需要修改，开机时已经检测并添加了 id=1 的前置摄像头设备，因此它不会允许再添加 external usb 设备，这个逻辑需要修改一下。
 
 
-Enjoy yourself！！！
+Enjoy yourself！！！ -->
 
 
 
